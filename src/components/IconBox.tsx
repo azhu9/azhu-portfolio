@@ -1,9 +1,20 @@
-import React from 'react'
+import React from "react";
 
-const IconBox = () => {
-  return (
-    <div>IconBox</div>
-  )
+interface IconProps {
+  icon: JSX.Element;
+  link: string;
 }
 
-export default IconBox
+const IconBox: React.FC<IconProps> = ({ icon, link }) => {
+  return (
+    <a
+      target="_blank"
+      href={link}
+      className="text-7xl background flex items-center justify-center"
+    >
+      <div>{icon}</div>
+    </a>
+  );
+};
+
+export default IconBox;

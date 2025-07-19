@@ -3,16 +3,8 @@ import profileImage from "../assets/placeholder.jpg"; // Replace with actual pat
 
 const ProfileCard = () => {
   return (
-    <div
-      className="flex flex-col background md:flex-row rounded-3xl p-2 text-white w-full h-full hover:scale-[101%]"
-      style={{
-        backgroundColor: "rgba(20, 20, 20, 0.65)",
-        backdropFilter: "blur(8px)",
-        border: "1px solid rgba(255, 255, 255, 0.1)",
-        opacity: "0.7",
-      }}
-    >
-      <div className="w-full md:w-auto flex justify-center items-center p-4">
+    <div className="flex flex-col background md:flex-row rounded-3xl p-2 text-white w-full h-full hover:scale-[102%] transition-all duration-400 ease-in-out">
+      <div className="w-full md:w-auto hidden md:flex justify-center items-center p-4">
         <img
           src={profileImage}
           alt="Andy Zhu"

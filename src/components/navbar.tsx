@@ -44,7 +44,7 @@ const Navbar: React.FC<NavbarProps> = ({ tab, setTab }) => {
 
   return (
     <div
-      className="text-white mx-auto top-0 z-[10000] backdrop-saturate-180 w-full pt-2"
+      className="text-white mx-auto top-0 z-[10000] backdrop-saturate-180 w-full pt-8"
       style={{
         marginTop: "30px",
         marginBottom: "30px",
@@ -52,9 +52,8 @@ const Navbar: React.FC<NavbarProps> = ({ tab, setTab }) => {
         paddingRight: "10px",
       }}
     >
-      <div className="bg-black bg-opacity-80 max-w-[500px] w-full m-auto rounded-full text-1.8rem border border-black p-[8px]">
-        <div className="flex rounded-full p-2 justify-between items-center text-white mx-auto relative">
-
+      <div className="max-w-[500px] w-full m-auto rounded-full text-1.8rem border border-black p-[8px]">
+        <div className="bg-[#070613] bg-opacity-50 flex rounded-full p-4 justify-between items-center text-white mx-auto relative">
           {/* Tabs */}
           {tabs.map(({ key, label }, index) => (
             <div

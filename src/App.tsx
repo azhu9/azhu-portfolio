@@ -29,7 +29,7 @@ function App() {
 
   useEffect(() => {
     const moveHandler = (e: MouseEvent) => {
-      setPosition({ x: e.clientX, y: e.clientY });
+      setPosition({ x: e.pageX, y: e.pageY });
     };
     window.addEventListener("mousemove", moveHandler);
     return () => window.removeEventListener("mousemove", moveHandler);
@@ -37,7 +37,7 @@ function App() {
 
   return (
     <main className="relative w-screen h-auto -mt-8">
-      <div className="absolute inset-0 bg-blue-400 z-0">
+      <div className="absolute inset-0 bg-blue-500 z-0">
         <div
           className="absolute inset-0 z-0"
           style={{

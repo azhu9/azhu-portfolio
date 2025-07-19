@@ -9,6 +9,12 @@ import {
 } from "../utils/layout.helper";
 
 import ProfileCard from "./ProfileCard";
+import Resume from "./Resume";
+import IconBox from "./IconBox";
+
+import { VscGithubAlt } from "react-icons/vsc";
+import { BsMailboxFlag } from "react-icons/bs";
+import { RiLinkedinFill } from "react-icons/ri";
 
 interface LayoutProps {
   tab: TabKey;
@@ -45,6 +51,23 @@ function Layout({ tab }: LayoutProps) {
     switch (key) {
       case "a":
         return <ProfileCard />;
+      case "b":
+        return <Resume />;
+      case "d":
+        return (
+          <IconBox icon={<VscGithubAlt />} link="https://github.com/azhu9" />
+        );
+      case "e":
+        return (
+          <IconBox icon={<BsMailboxFlag />} link="mailto:azhu625@gmail.com" />
+        );
+      case "f":
+        return (
+          <IconBox
+            icon={<RiLinkedinFill />}
+            link="https://www.linkedin.com/in/azhu0/"
+          />
+        );
       default:
         return <Block keyProp={"Tile " + key} />;
     }
