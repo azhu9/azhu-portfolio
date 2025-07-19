@@ -21,20 +21,6 @@ body {
   overflow-y: auto; /* Ensure the entire page can scroll vertically */
   height: 100%; /* Allow body to expand and scroll with content */
   scrollbar-width: none;
-  /* background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 25%, #1d4ed8 50%, #1e293b 75%, #000000 100%); */
-  /* Alternative gradient options: */
-  /* Option 1 - More subtle blue to black: */
-  /* background: linear-gradient(135deg, #1e40af 0%, #1e293b 50%, #0f172a 100%); */
-  
-  /* Option 2 - Navy to black: */
-  /* background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 50%, #000000 100%); */
-  
-  /* Option 3 - Midnight blue to black: */
-  background: linear-gradient(135deg, #0c2063 0%, #1e293b 30%, #0f172a 70%, #000000 100%);
-  
-  /* Ensure gradient covers full viewport */
-  min-height: 100vh;
-  background-attachment: fixed;
 }
 
 #root {
@@ -44,9 +30,6 @@ body {
   overflow: visible; /* Make sure scrolling isn't restricted to just the root container */
 }
 
-html {
-  height: 100%; /* Ensure the HTML root is full-height to allow scrolling */
-}
 
 .background {
   background-color: 'rgba(20, 20, 20, 0.65)';

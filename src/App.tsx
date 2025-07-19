@@ -36,7 +36,7 @@ function App() {
   }, []);
 
   return (
-    <main className="relative w-screen h-screen">
+    <main className="relative w-screen h-auto -mt-8">
       <div className="absolute inset-0 bg-blue-400 z-0">
         <div
           className="absolute inset-0 z-0"

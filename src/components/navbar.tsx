@@ -66,7 +66,7 @@ const Navbar: React.FC<NavbarProps> = ({ tab, setTab }) => {
               onClick={() => setTab(key)}
               style={{ zIndex: 30 }}
             >
-              <span className="text-lg hover:text-cyan-500 transition-colors duration-300">
+              <span className="text-lg hover:text-blue-500 transition-colors duration-300">
                 {label}
               </span>
             </div>
