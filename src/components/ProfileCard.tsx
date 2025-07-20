@@ -1,4 +1,4 @@
-import React from "react";
+// import React from "react";
 import profileImage from "../assets/placeholder.jpg"; // Replace with actual path or import
 
 const ProfileCard = () => {
