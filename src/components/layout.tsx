@@ -13,6 +13,9 @@ import Resume from "./Resume";
 import Map from "./Map";
 import IconBox from "./IconBox";
 import Skills from "./Skills";
+import Project from "./Project";
+
+import img from "../assets/img.svg";
 
 import { VscGithubAlt } from "react-icons/vsc";
 import { BsMailboxFlag } from "react-icons/bs";
@@ -74,6 +77,67 @@ function Layout({ tab }: LayoutProps) {
         );
       case "g":
         return <Skills />;
+      case "i":
+        return (
+          <Project
+            image={
+              <img
+                src={img}
+                className=" h-64 md:h-72 lg:h-80 w-full object-cover rounded-2xl"
+              />
+            }
+            title="Rutgers IEEE Website"
+            description="description"
+            liveLink="link"
+            github="github"
+          />
+        );
+      case "j":
+        return (
+          <Project
+            image={
+              <img
+                src={img}
+                className=" h-64 md:h-72 lg:h-80 w-full object-cover rounded-2xl"
+              />
+            }
+            title="Rutgers IEEE Website"
+            description="description"
+            liveLink="link"
+            github="github"
+          />
+        );
+      case "k":
+        return (
+          <Project
+            image={
+              <img
+                src={img}
+                className=" h-64 md:h-72 lg:h-80 w-full object-cover rounded-2xl"
+              />
+            }
+            title="Rutgers IEEE Website"
+            description="description"
+            liveLink="link"
+            github="github"
+          />
+        );
+      case "l":
+        return (
+          <Project
+            image={
+              <img
+                src={img}
+                className=" h-64 md:h-72 lg:h-80 w-full object-cover rounded-2xl"
+              />
+            }
+            title="Rutgers IEEE Website"
+            description="description"
+            liveLink="link"
+            github="github"
+          />
+        );
+
       default:
         return <Block keyProp={"Tile " + key} />;
     }
