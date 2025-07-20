@@ -10,7 +10,9 @@ import {
 
 import ProfileCard from "./ProfileCard";
 import Resume from "./Resume";
+import Map from "./Map";
 import IconBox from "./IconBox";
+import Skills from "./Skills";
 
 import { VscGithubAlt } from "react-icons/vsc";
 import { BsMailboxFlag } from "react-icons/bs";
@@ -53,6 +55,8 @@ function Layout({ tab }: LayoutProps) {
         return <ProfileCard />;
       case "b":
         return <Resume />;
+      case "c":
+        return <Map />;
       case "d":
         return (
           <IconBox icon={<VscGithubAlt />} link="https://github.com/azhu9" />
@@ -68,6 +72,8 @@ function Layout({ tab }: LayoutProps) {
             link="https://www.linkedin.com/in/azhu0/"
           />
         );
+      case "g":
+        return <Skills />;
       default:
         return <Block keyProp={"Tile " + key} />;
     }

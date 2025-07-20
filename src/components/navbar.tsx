@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { TabKey } from "../App";
 
+import { LuMoon, LuSun } from "react-icons/lu";
+
 export interface NavbarProps {
   tab: TabKey;
   setTab: React.Dispatch<React.SetStateAction<TabKey>>;
