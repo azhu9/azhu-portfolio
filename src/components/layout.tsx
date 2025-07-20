@@ -12,6 +12,7 @@ import ProfileCard from "./ProfileCard";
 import Resume from "./Resume";
 import Map from "./Map";
 import IconBox from "./IconBox";
+import Experience from "./Experience";
 import Skills from "./Skills";
 import Project from "./Project";
 
@@ -77,6 +78,8 @@ function Layout({ tab }: LayoutProps) {
         );
       case "g":
         return <Skills />;
+      case "h":
+        return <Experience />;
       case "i":
         return (
           <Project

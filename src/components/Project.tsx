@@ -23,8 +23,20 @@ const Project: React.FC<ProjectProps> = ({
         <a className="text-lg text-gray-300">{description}</a>
       </div>
       <div className="absolute bottom-6 left-4 text-sm gap-4 w-full">
-        <a className="bg-black py-2 px-6 my-4 mr-4 rounded-lg">Github</a>
-        <a className="bg-black py-2 px-6 my-4 mr-4 rounded-lg">Live Link</a>
+        <a
+          className="bg-black py-2 px-6 my-4 mr-4 rounded-lg"
+          href={github}
+          target="_blank"
+        >
+          Github
+        </a>
+        <a
+          className="bg-black py-2 px-6 my-4 mr-4 rounded-lg"
+          href={liveLink}
+          target="_blank"
+        >
+          Live Link
+        </a>
       </div>
     </div>
   );
