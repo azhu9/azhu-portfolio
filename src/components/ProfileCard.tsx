@@ -11,9 +11,9 @@ const ProfileCard = () => {
           className="rounded-xl object-cover w-[300px] max-w-full"
         />
       </div>
-      <div className="flex items-center w-full text-left p-4">
-        <div>
-          <h1 className="text-2xl md:text-5xl font-bold mb-2">
+      <div className="flex w-full text-left p-4 h-full">
+        <div className="flex flex-col justify-center items-center md:items-start text-center md:text-left w-full">
+          <h1 className="text-4xl md:text-5xl font-bold mb-2">
             Hi, I'm <span className="text-blue-600">Andy Zhu</span>
           </h1>
           <h2 className="text-lg md:text-xl mb-4">
