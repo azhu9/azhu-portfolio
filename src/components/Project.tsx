@@ -20,7 +20,7 @@ const Project: React.FC<ProjectProps> = ({
       <div className="">{image}</div>
       <h1 className="mt-2 font-semibold text-2xl">{title}</h1>
       <div className="mt-2">
-        <a className="text-lg text-gray-300">{description}</a>
+        <a className="text-base text-gray-300">{description}</a>
       </div>
       <div className="absolute bottom-6 left-4 text-sm gap-4 w-full">
         <a

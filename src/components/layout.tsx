@@ -17,6 +17,9 @@ import Skills from "./Skills";
 import Project from "./Project";
 
 import img from "../assets/img.svg";
+import vex from "../assets/vexbots.webp";
+import rieee from "../assets/rieeeSS.png";
+import scar from "../assets/scarSS.png";
 
 import { VscGithubAlt } from "react-icons/vsc";
 import { BsMailboxFlag } from "react-icons/bs";
@@ -85,7 +88,7 @@ function Layout({ tab }: LayoutProps) {
           <Project
             image={
               <img
-                src={img}
+                src={rieee}
                 className=" h-64 md:h-72 lg:h-80 w-full object-cover rounded-2xl"
               />
             }
@@ -100,11 +103,11 @@ function Layout({ tab }: LayoutProps) {
           <Project
             image={
               <img
-                src={img}
+                src={scar}
                 className=" h-64 md:h-72 lg:h-80 w-full object-cover rounded-2xl"
               />
             }
-            title="Rutgers IEEE Website"
+            title="Rutgers VEXU Website"
             description="description"
             liveLink="link"
             github="github"
@@ -115,11 +118,11 @@ function Layout({ tab }: LayoutProps) {
           <Project
             image={
               <img
-                src={img}
+                src={vex}
                 className=" h-64 md:h-72 lg:h-80 w-full object-cover rounded-2xl"
               />
             }
-            title="Rutgers IEEE Website"
+            title="Rutgers VEXU Programming Library"
             description="description"
             liveLink="link"
             github="github"
@@ -134,7 +137,7 @@ function Layout({ tab }: LayoutProps) {
                 className=" h-64 md:h-72 lg:h-80 w-full object-cover rounded-2xl"
               />
             }
-            title="Rutgers IEEE Website"
+            title="Andy Zhu Portfolio Website"
             description="description"
             liveLink="link"
             github="github"
