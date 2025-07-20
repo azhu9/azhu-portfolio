@@ -18,7 +18,7 @@ const Project: React.FC<ProjectProps> = ({
   return (
     <div className="background p-4 relative">
       <div className="">{image}</div>
-      <h1 className="mt-2 font-semibold text-2xl">{title}</h1>
+      <h1 className="mt-4 font-semibold text-2xl">{title}</h1>
       <div className="mt-2">
         <a className="text-base text-gray-300">{description}</a>
       </div>
