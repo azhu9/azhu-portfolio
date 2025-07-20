@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Geist:wght@100..900&display=swap');
 
 @import "../node_modules/react-grid-layout/css/styles.css";
 @import "../node_modules/react-resizable/css/styles.css";
@@ -7,12 +7,21 @@
 @tailwind components;
 @tailwind utilities;
 
-@theme {
-  --font-geist: Geist;
+.font-geist {
+  font-family: "Geist", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+h1 {
+  font-family: "Geist", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
 }
 
-h1 {
-  font-family: var(--font-geist);
+p,h2,h3 {
+  font-family: "DM Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
 }
 
 body {

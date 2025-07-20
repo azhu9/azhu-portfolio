@@ -7,12 +7,12 @@ const techStack = [
   { name: "Node.js", icon: "N", bg: "bg-green-600" },
   { name: "Next.js", icon: "▲", bg: "bg-black" },
   { name: "Python", icon: "🐍", bg: "bg-blue-600" },
+  { name: "Flask", icon: "◆", bg: "bg-green-500" },
   { name: "Java", icon: "☁️", bg: "bg-orange-500" },
   { name: "C++", icon: "🐳", bg: "bg-blue-400" },
   { name: "C", icon: "🍃", bg: "bg-green-500" },
   { name: "SQL", icon: "🐘", bg: "bg-blue-700" },
   { name: "GraphQL", icon: "◇", bg: "bg-pink-500" },
-  { name: "Redis", icon: "◆", bg: "bg-red-500" },
   { name: "Matlab", icon: "◆", bg: "bg-red-500" },
 ];
 
@@ -74,7 +74,7 @@ export default function Skills() {
   return (
     <div className="background pt-8 px-8">
       <div className="mb-12">
-        <p className="text-gray-400 text-sm mb-2 tracking-wide">
+        <p className="text-gray-400 font-light text-sm mb-2 tracking-wide">
           What am I building with?
         </p>
         <h1 className="text-3xl md:text-5xl font-bold text-white mb-4">

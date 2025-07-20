@@ -34,7 +34,12 @@ const xpData = [
 const Experience = () => {
   return (
     <div className="flex flex-col border background">
-      <div className="p-8 text-3xl md:text-5xl font-bold">My Experience</div>
+      <div className="p-8 text-3xl md:text-5xl font-bold">
+        <p className="text-gray-400 text-sm font-light mb-2 tracking-wide">
+          Where have I worked?
+        </p>
+        <h1>My Experience</h1>
+      </div>
       <div className="flex-grow overflow-y-auto p-2">
         <ol className="relative space-y-8 before:absolute before:-ml-px before:h-full before:w-0.5 before:rounded-full before:bg-gray-200 px-8">
           {xpData.map((xp, index) => (
