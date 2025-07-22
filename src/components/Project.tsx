@@ -18,20 +18,24 @@ const Project: React.FC<ProjectProps> = ({
   return (
     <div className="background p-4 relative">
       <div className="">{image}</div>
-      <h1 className="mt-4 font-semibold text-2xl">{title}</h1>
+      <h1 className="mt-4 font-semibold text-2xl dark:text-white text-black">
+        {title}
+      </h1>
       <div className="mt-2">
-        <a className="text-base text-gray-300">{description}</a>
+        <a className="text-base dark:text-gray-300 text-gray-700">
+          {description}
+        </a>
       </div>
       <div className="absolute bottom-6 left-4 text-sm gap-4 w-full">
         <a
-          className="bg-black py-2 px-6 my-4 mr-4 rounded-lg"
+          className="dark:bg-black dark:text-white bg-white text-black drop-shadow-md py-2 px-6 my-4 mr-4 rounded-lg"
           href={github}
           target="_blank"
         >
           Github
         </a>
         <a
-          className="bg-black py-2 px-6 my-4 mr-4 rounded-lg"
+          className="dark:bg-black dark:text-white bg-white text-black drop-shadow-md py-2 px-6 my-4 mr-4 rounded-lg"
           href={liveLink}
           target="_blank"
         >

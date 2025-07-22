@@ -3,7 +3,7 @@ import profileImage from "../assets/placeholder.jpg"; // Replace with actual pat
 
 const ProfileCard = () => {
   return (
-    <div className="flex flex-col background md:flex-row rounded-3xl p-2 text-white w-full h-full hover:scale-[102%] transition-all duration-400 ease-in-out">
+    <div className="flex flex-col background md:flex-row rounded-3xl p-2 text-white w-full h-full">
       <div className="w-full md:w-auto hidden md:flex justify-center items-center p-4">
         <img
           src={profileImage}
@@ -13,14 +13,14 @@ const ProfileCard = () => {
       </div>
       <div className="flex w-full text-left p-4 h-full">
         <div className="flex flex-col justify-center items-center md:items-start text-center md:text-left w-full">
-          <h1 className="text-4xl md:text-5xl font-bold mb-2">
+          <h1 className="text-4xl md:text-5xl font-bold mb-2 dark:text-white text-black">
             Hi, I'm <span className="text-blue-600">Andy Zhu</span>
           </h1>
-          <h2 className="text-lg md:text-xl mb-4">
+          <h2 className="text-lg md:text-xl mb-4 dark:text-white text-black">
             Currently studying{" "}
             <span className="text-red-400">@ Rutgers University</span>
           </h2>
-          <p className="text-sm md:text-base text-gray-300 leading-relaxed">
+          <p className="text-sm md:text-base dark:text-gray-300 text-gray-700 leading-relaxed">
             Pursuing a BS in Computer Science, with a minor in Mathematics.
             Interested in Frontend Development and Software Engineering.
             Passionate about Robotics, Piano, and Technology News. Also an

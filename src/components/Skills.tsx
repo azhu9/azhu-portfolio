@@ -74,13 +74,13 @@ export default function Skills() {
   return (
     <div className="background pt-8 px-8">
       <div className="mb-12">
-        <p className="text-gray-400 font-light text-sm mb-2 tracking-wide">
+        <p className="dark:text-gray-400 text-gray-600 font-light text-sm mb-2 tracking-wide">
           What am I building with?
         </p>
-        <h1 className="text-3xl md:text-5xl font-bold text-white mb-4">
+        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold dark:text-white text-black mb-4">
           My Tech Stack
         </h1>
-        <p className="text-gray-300 text-lg">
+        <p className="dark:text-gray-300 text-gray-700 text-lg">
           See my resume for a full list of skills/technologies!
         </p>
       </div>
@@ -101,7 +101,7 @@ export default function Skills() {
           {techStack.map((tech, index) => (
             <div
               key={`${tech.name}-${index}`}
-              className="mx-auto flex-shrink-0 bg-gray-700/50 backdrop-blur-sm rounded-lg p-2 border border-gray-600/30 hover:bg-gray-600/50 transition-all duration-300 hover:border-gray-500/50"
+              className="mx-auto flex-shrink-0 dark:bg-gray-700/50 bg-gray-300/50  backdrop-blur-sm rounded-lg p-2 border border-gray-600/30 hover:bg-gray-600/50 transition-all duration-300 hover:border-gray-500/50"
               style={{
                 width: `${ITEM_WIDTH}px`,
                 height: `${ITEM_WIDTH}px`,
@@ -109,11 +109,11 @@ export default function Skills() {
             >
               <div className="flex flex-col items-center justify-center h-full space-y-1">
                 <div
-                  className={`w-8 h-8 ${tech.bg} rounded-md flex items-center justify-center text-white font-bold text-xs shadow-lg`}
+                  className={`w-8 h-8 ${tech.bg} rounded-md flex items-center justify-center dark:text-white text-black font-bold text-xs shadow-lg`}
                 >
                   {tech.icon}
                 </div>
-                <span className="text-white font-medium text-[10px] text-center leading-tight">
+                <span className="dark:text-white text-black font-medium text-[10px] text-center leading-tight">
                   {tech.name}
                 </span>
               </div>
@@ -130,8 +130,8 @@ export default function Skills() {
               onClick={() => setCurrentIndex(index)}
               className={`w-2 h-2 rounded-full transition-all duration-300 ${
                 currentIndex === index
-                  ? "bg-white w-8"
-                  : "bg-gray-600 hover:bg-gray-400"
+                  ? "dark:bg-white bg-gray-700 w-8"
+                  : "dark:bg-gray-600 bg-gray-400 hover:bg-gray-400"
               }`}
             />
           ))}

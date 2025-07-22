@@ -1,8 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { TabKey } from "../App";
 
-// import { LuMoon, LuSun } from "react-icons/lu";
-
 export interface NavbarProps {
   tab: TabKey;
   setTab: React.Dispatch<React.SetStateAction<TabKey>>;
@@ -54,15 +52,17 @@ const Navbar: React.FC<NavbarProps> = ({ tab, setTab }) => {
         paddingRight: "10px",
       }}
     >
-      <div className="max-w-[500px] w-full m-auto rounded-full text-1.8rem border border-black p-[8px]">
-        <div className="bg-[#070613] bg-opacity-50 flex rounded-full p-4 justify-between items-center text-white mx-auto relative">
+      <div className="max-w-[500px] w-full m-auto rounded-3xl text-1.8rem border border-black p-[8px]">
+        <div className="background flex rounded-3xl p-4 justify-between items-center text-white mx-auto relative">
           {/* Tabs */}
           {tabs.map(({ key, label }, index) => (
             <div
               key={key}
               ref={(el) => (tabRefs.current[index] = el!)}
               className={`flex items-center h-8 flex-1 cursor-pointer justify-center ${
-                tab === key ? "text-white" : "text-white"
+                tab === key
+                  ? "dark:text-white text-black"
+                  : "dark:text-white text-black"
               }`}
               onClick={() => setTab(key)}
               style={{ zIndex: 30 }}
@@ -75,7 +75,7 @@ const Navbar: React.FC<NavbarProps> = ({ tab, setTab }) => {
 
           {/* Sliding highlight div */}
           <div
-            className="absolute h-10 bg-[#505050]/40 border-0 border-[#FFFFFF] rounded-full z-20"
+            className="absolute h-10 dark:bg-[#505050]/40 bg-gray-400/40 border-0 border-[#FFFFFF] rounded-3xl z-20"
             style={{
               left: `${sliderStyle.left}px`,
               width: `${sliderStyle.width}px`,

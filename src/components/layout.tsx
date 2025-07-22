@@ -15,6 +15,7 @@ import IconBox from "./IconBox";
 import Experience from "./Experience";
 import Skills from "./Skills";
 import Project from "./Project";
+import ThemeToggle from "./ThemeToggle";
 
 import img from "../assets/img.svg";
 import vex from "../assets/vexbots.webp";
@@ -104,7 +105,7 @@ function Layout({ tab }: LayoutProps) {
             image={
               <img
                 src={scar}
-                className=" h-64 md:h-72 lg:h-80 w-full object-cover rounded-2xl"
+                className="h-64 md:h-72 lg:h-80 w-full object-cover rounded-2xl"
               />
             }
             title="Rutgers VEXU Website"
@@ -119,7 +120,7 @@ function Layout({ tab }: LayoutProps) {
             image={
               <img
                 src={vex}
-                className=" h-64 md:h-72 lg:h-80 w-full object-cover rounded-2xl"
+                className="h-64 md:h-72 lg:h-80 w-full object-cover rounded-2xl"
               />
             }
             title="Rutgers VEXU Programming Library"
@@ -143,6 +144,8 @@ function Layout({ tab }: LayoutProps) {
             github="github"
           />
         );
+      case "x":
+        return <ThemeToggle />;
 
       default:
         return <Block keyProp={"Tile " + key} />;
@@ -176,13 +179,13 @@ const Block = ({ keyProp }: { keyProp: string }) => {
 
   return (
     <div
-      style={{
-        backgroundColor: "rgba(20, 20, 20, 0.65)",
-        backdropFilter: "blur(8px)", // Optional for soft-glass look
-        border: "1px solid rgba(255, 255, 255, 0.1)", // Optional subtle border
-        opacity: "0.7",
-      }}
-      className="h-full w-full flex flex-col justify-center items-center p-6 text-[var(--black-1)] rounded-3xl"
+      // style={{
+      //   backgroundColor: "rgba(20, 20, 20, 0.65)",
+      //   backdropFilter: "blur(8px)", // Optional for soft-glass look
+      //   border: "1px solid rgba(255, 255, 255, 0.1)", // Optional subtle border
+      //   opacity: "0.7",
+      // }}
+      className="background h-full w-full flex flex-col justify-center items-center p-6 text-[var(--black-1)] rounded-3xl"
     >
       <span>
         <span className="normal-case">{label}</span>{" "}

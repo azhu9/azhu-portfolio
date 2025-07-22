@@ -33,12 +33,14 @@ const xpData = [
 
 const Experience = () => {
   return (
-    <div className="flex flex-col border background">
-      <div className="p-8 text-3xl md:text-5xl font-bold">
-        <p className="text-gray-400 text-sm font-light mb-2 tracking-wide">
+    <div className="flex flex-col border background bg-black/50">
+      <div className="p-8 font-bold">
+        <p className="dark:text-gray-400 text-gray-600 text-sm font-light mb-2 tracking-wide">
           Where have I worked?
         </p>
-        <h1>My Experience</h1>
+        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold dark:text-white text-black mb-4">
+          My Experience
+        </h1>
       </div>
       <div className="flex-grow overflow-y-auto p-2">
         <ol className="relative space-y-8 before:absolute before:-ml-px before:h-full before:w-0.5 before:rounded-full before:bg-gray-200 px-8">
@@ -47,13 +49,19 @@ const Experience = () => {
               <span className="size-3 shrink-0 rounded-full bg-blue-500"></span>
 
               <div className="-mt-2">
-                <time className="text-xs/none font-medium text-gray-400">
+                <time className="text-xs/none font-medium dark:text-gray-400 text-gray-600">
                   {xp.date}
                 </time>
-                <h3 className="text-base font-semibold">{xp.company}</h3>
-                <h3 className="text-xl font-bold">{xp.title}</h3>
+                <h3 className="text-base font-semibold dark:text-white text-black">
+                  {xp.company}
+                </h3>
+                <h3 className="text-xl font-bold dark:text-white text-black">
+                  {xp.title}
+                </h3>
 
-                <p className="mt-2 text-sm">{xp.description}</p>
+                <p className="mt-2 text-sm dark:text-white text-black">
+                  {xp.description}
+                </p>
               </div>
             </li>
           ))}
