@@ -6,28 +6,28 @@ const xpData = [
     company: "Rutgers VEXU",
     title: "President / Software Engineering Lead",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos tenetur qui nisi eveniet iusto impedit nemo ullam explicabo, minus atque dolore velit sint esse labore! Natus blanditiis maxime sed officia incidunt recusandae aut esse! Voluptas, recusandae officia. Nam exercitationem omnis dolore excepturi architecto facilis delectus rem officiis deleniti odit. Sunt.",
+      "Lead the team as the president by organizing competitions, finances, interpersonal communcations and overseeing all projects. As the Software Engineering lead I taught 40+ students C++ and programmed robots that qualified for the World Championship in 2024 and 2025 and acheived top 20 rankings.",
   },
   {
     date: "4/25 - Present",
     company: "Rutgers IEEE",
     title: "Webmaster - Frontend Engineer",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos tenetur qui nisi eveniet iusto impedit nemo ullam explicabo, minus atque dolore velit sint esse labore! Natus blanditiis maxime sed officia incidunt recusandae aut esse! Voluptas, recusandae officia. Nam exercitationem omnis dolore excepturi architecto facilis delectus rem officiis deleniti odit. Sunt.",
+      "As the Webmaster of the Rutgers IEEE branch I overhauled an outdated website by 5+ years which can be seen in my projects. Additionally I worked with the PR Committee to make partnerhships with companies and our internal divisions to maintain high quality documentation.",
   },
   {
     date: "6/24 - 8/24",
     company: "Innovation Foundry",
     title: "Technology Instructor",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos tenetur qui nisi eveniet iusto impedit nemo ullam explicabo, minus atque dolore velit sint esse labore! Natus blanditiis maxime sed officia incidunt recusandae aut esse! Voluptas, recusandae officia. Nam exercitationem omnis dolore excepturi architecto facilis delectus rem officiis deleniti odit. Sunt.",
+      "Managed groups of 8 students ranging from 8-13 years old by teaching Mobile App Development, Augmented/Virtual Reality Development using Unity, 3D Printing, Laser Cutting and Arduino/Electronics. Created and designed puzzles using 3D Printing and Arduino programming for escape room programs. ",
   },
   {
     date: "6/22 - 8/22",
     company: "All Star Code",
     title: "Summer Scholar: Cohort Representative",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos tenetur qui nisi eveniet iusto impedit nemo ullam explicabo, minus atque dolore velit sint esse labore! Natus blanditiis maxime sed officia incidunt recusandae aut esse! Voluptas, recusandae officia. Nam exercitationem omnis dolore excepturi architecto facilis delectus rem officiis deleniti odit. Sunt.",
+      "I attended a 6 week Summer Intensive program designed to teach HTML, CSS, and Javascript high school students. I was selected as 1 of 30 students as the Cohort representative to partner with All Star Code for future teaching opportunities. ",
   },
 ];
 

@@ -22,9 +22,9 @@ const Project: React.FC<ProjectProps> = ({
         {title}
       </h1>
       <div className="mt-2">
-        <a className="text-base dark:text-gray-300 text-gray-700">
+        <p className="text-sm dark:text-gray-300 text-gray-700 leading-normal">
           {description}
-        </a>
+        </p>
       </div>
       <div className="absolute bottom-6 left-4 text-sm gap-4 w-full">
         <a

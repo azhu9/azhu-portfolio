@@ -19,15 +19,13 @@ const ThemeToggle = () => {
     document.documentElement.classList.toggle("dark", isDark);
   }, [isDark]);
 
-  const toggleDarkMode = () => {
-    setIsDark((prev) => !prev);
-  };
+  const toggleDarkMode = () => setIsDark(!isDark);
 
   return (
     <div className="background flex items-center justify-center">
       <label
         htmlFor="AcceptConditions"
-        className="relative block h-8 w-14 rounded-full bg-gray-300 transition-colors [-webkit-tap-highlight-color:_transparent] has-checked:bg-green-500 dark:bg-gray-600 dark:has-checked:bg-green-600"
+        className="relative block h-8 w-14 rounded-full bg-gray-400/40 transition-colors [-webkit-tap-highlight-color:_transparent] peer-checked:bg-green-500 dark:bg-gray-700 dark:peer-checked:bg-green-600"
       >
         <input
           type="checkbox"
@@ -36,7 +34,11 @@ const ThemeToggle = () => {
           checked={isDark}
           onChange={toggleDarkMode}
         />
-        <span className="absolute inset-y-0 start-0 m-1 grid size-6 place-content-center rounded-full bg-white text-gray-700 transition-[inset-inline-start] peer-checked:start-6 dark:bg-gray-900 dark:text-gray-200"></span>
+
+        {/* Toggle thumb */}
+        <span className="absolute inset-y-0 start-0 m-1 grid size-6 place-content-center rounded-full bg-white text-gray-700 transition-all peer-checked:start-6 dark:bg-gray-900 dark:text-gray-200">
+          {isDark ? <LuMoon size={16} /> : <LuSun size={16} />}
+        </span>
       </label>
     </div>
   );

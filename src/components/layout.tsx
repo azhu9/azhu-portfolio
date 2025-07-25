@@ -16,11 +16,13 @@ import Experience from "./Experience";
 import Skills from "./Skills";
 import Project from "./Project";
 import ThemeToggle from "./ThemeToggle";
+import Slider from "./Slider";
 
-import img from "../assets/img.svg";
 import vex from "../assets/vexbots.webp";
 import rieee from "../assets/rieeeSS.png";
 import scar from "../assets/scarSS.png";
+import rutgers from "../assets/rutgers.png";
+import portfolio from "../assets/portfolio.png";
 
 import { VscGithubAlt } from "react-icons/vsc";
 import { BsMailboxFlag } from "react-icons/bs";
@@ -31,9 +33,11 @@ interface LayoutProps {
   setTab: React.Dispatch<React.SetStateAction<TabKey>>;
   left?: number;
   sliderWidth?: number;
+  hue: number;
+  onHueChange: (hue: number) => void;
 }
 
-function Layout({ tab }: LayoutProps) {
+function Layout({ tab, hue, onHueChange }: LayoutProps) {
   const [currentlayout, setCurrentLayout] = useState(AboutLayout);
 
   useEffect(() => {
@@ -60,7 +64,7 @@ function Layout({ tab }: LayoutProps) {
   const renderTileContent = (key: string) => {
     switch (key) {
       case "a":
-        return <ProfileCard />;
+        return <ProfileCard hue={hue} />;
       case "b":
         return <Resume />;
       case "c":
@@ -94,7 +98,7 @@ function Layout({ tab }: LayoutProps) {
               />
             }
             title="Rutgers IEEE Website"
-            description="description"
+            description="As the Webmaster of Rutgers IEEE, I created a new club website using ReactJS and TailwindCSS front end. "
             liveLink="link"
             github="github"
           />
@@ -109,22 +113,7 @@ function Layout({ tab }: LayoutProps) {
               />
             }
             title="Rutgers VEXU Website"
-            description="description"
-            liveLink="link"
-            github="github"
-          />
-        );
-      case "k":
-        return (
-          <Project
-            image={
-              <img
-                src={vex}
-                className="h-64 md:h-72 lg:h-80 w-full object-cover rounded-2xl"
-              />
-            }
-            title="Rutgers VEXU Programming Library"
-            description="description"
+            description="A static website built using ReactJS and TailwindCSS used to display team history and sponsors."
             liveLink="link"
             github="github"
           />
@@ -134,21 +123,39 @@ function Layout({ tab }: LayoutProps) {
           <Project
             image={
               <img
-                src={img}
+                src={vex}
+                className="h-64 md:h-72 lg:h-80 w-full object-cover rounded-2xl"
+              />
+            }
+            title="Rutgers VEXU Programming Library"
+            description="A Programming Library written in C++ for the VEXU Robotics Competition. This library includes driver control of robot movement and controller macros. Additionally it contains autonomous algorithms including PID and an Odometry feedback loop."
+            liveLink="link"
+            github="github"
+          />
+        );
+      case "k":
+        return (
+          <Project
+            image={
+              <img
+                src={portfolio}
                 className=" h-64 md:h-72 lg:h-80 w-full object-cover rounded-2xl"
               />
             }
             title="Andy Zhu Portfolio Website"
-            description="description"
+            description="A portfolio website built to display projects and experience. Made using React, TypeScript, TailwindCSS and react-grid-layout."
             liveLink="link"
             github="github"
           />
         );
       case "x":
+        return <Block />;
+      case "y":
         return <ThemeToggle />;
-
+      case "z":
+        return <Slider hue={hue} onHueChange={onHueChange} />;
       default:
-        return <Block keyProp={"Tile " + key} />;
+        return <Block />;
     }
   };
 
@@ -174,23 +181,10 @@ function Layout({ tab }: LayoutProps) {
   );
 }
 
-const Block = ({ keyProp }: { keyProp: string }) => {
-  const [label, keyPart] = keyProp.split(" ");
-
+const Block = ({}) => {
   return (
-    <div
-      // style={{
-      //   backgroundColor: "rgba(20, 20, 20, 0.65)",
-      //   backdropFilter: "blur(8px)", // Optional for soft-glass look
-      //   border: "1px solid rgba(255, 255, 255, 0.1)", // Optional subtle border
-      //   opacity: "0.7",
-      // }}
-      className="background h-full w-full flex flex-col justify-center items-center p-6 text-[var(--black-1)] rounded-3xl"
-    >
-      <span>
-        <span className="normal-case">{label}</span>{" "}
-        <span className="uppercase">{keyPart}</span>
-      </span>
+    <div className="background flex items-center justify-center">
+      <img src={rutgers} className="h-auto max-w-8" />
     </div>
   );
 };

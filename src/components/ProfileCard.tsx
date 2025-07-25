@@ -1,7 +1,13 @@
 // import React from "react";
 import profileImage from "../assets/placeholder.jpg"; // Replace with actual path or import
 
-const ProfileCard = () => {
+interface ProfileProps {
+  hue: number;
+}
+
+const ProfileCard: React.FC<ProfileProps> = ({ hue }) => {
+  const primaryColor = `hsl(${hue}, 90%, 50%)`;
+
   return (
     <div className="flex flex-col background md:flex-row rounded-3xl p-2 text-white w-full h-full">
       <div className="w-full md:w-auto hidden md:flex justify-center items-center p-4">
@@ -14,7 +20,7 @@ const ProfileCard = () => {
       <div className="flex w-full text-left p-4 h-full">
         <div className="flex flex-col justify-center items-center md:items-start text-center md:text-left w-full">
           <h1 className="text-4xl md:text-5xl font-bold mb-2 dark:text-white text-black">
-            Hi, I'm <span className="text-blue-600">Andy Zhu</span>
+            Hi, I'm <span style={{ color: `${primaryColor}` }}>Andy Zhu</span>
           </h1>
           <h2 className="text-lg md:text-xl mb-4 dark:text-white text-black">
             Currently studying{" "}

@@ -1,19 +1,19 @@
 import { useState, useEffect, useRef } from "react";
 
 const techStack = [
-  { name: "JavaScript", icon: "🟨", bg: "bg-yellow-500" },
-  { name: "TypeScript", icon: "TS", bg: "bg-blue-500" },
+  { name: "JavaScript", icon: "🟨", bg: "bg-yellow-400" },
+  { name: "TypeScript", icon: "🟦", bg: "bg-blue-500" },
   { name: "React", icon: "⚛️", bg: "bg-cyan-500" },
-  { name: "Node.js", icon: "N", bg: "bg-green-600" },
-  { name: "Next.js", icon: "▲", bg: "bg-black" },
-  { name: "Python", icon: "🐍", bg: "bg-blue-600" },
-  { name: "Flask", icon: "◆", bg: "bg-green-500" },
-  { name: "Java", icon: "☁️", bg: "bg-orange-500" },
-  { name: "C++", icon: "🐳", bg: "bg-blue-400" },
-  { name: "C", icon: "🍃", bg: "bg-green-500" },
-  { name: "SQL", icon: "🐘", bg: "bg-blue-700" },
-  { name: "GraphQL", icon: "◇", bg: "bg-pink-500" },
-  { name: "Matlab", icon: "◆", bg: "bg-red-500" },
+  { name: "Node.js", icon: "🟩", bg: "bg-green-600" },
+  { name: "Next.js", icon: "⬛", bg: "bg-neutral-900" },
+  { name: "Python", icon: "🐍", bg: "bg-yellow-600" },
+  { name: "Flask", icon: "💧", bg: "bg-blue-400" },
+  { name: "Java", icon: "☕", bg: "bg-orange-600" },
+  { name: "C++", icon: "💠", bg: "bg-blue-500" },
+  { name: "C", icon: "🔧", bg: "bg-gray-500" },
+  { name: "SQL", icon: "🗄️", bg: "bg-blue-800" },
+  { name: "MongoDB", icon: "🍃", bg: "bg-emerald-600" },
+  { name: "Matlab", icon: "📈", bg: "bg-red-600" },
 ];
 
 const ITEM_WIDTH = 80; // Fixed width for each icon container
