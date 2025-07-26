@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Layout from "./components/layout";
 import Navbar from "./components/navbar";
 
@@ -25,15 +25,15 @@ function App() {
   const x = baseX + tabOffsets[tab];
   const w = baseW;
 
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+  // const [position, setPosition] = useState({ x: 0, y: 0 });
 
-  useEffect(() => {
-    const moveHandler = (e: MouseEvent) => {
-      setPosition({ x: e.pageX, y: e.pageY });
-    };
-    window.addEventListener("mousemove", moveHandler);
-    return () => window.removeEventListener("mousemove", moveHandler);
-  }, []);
+  // useEffect(() => {
+  //   const moveHandler = (e: MouseEvent) => {
+  //     setPosition({ x: e.pageX, y: e.pageY });
+  //   };
+  //   window.addEventListener("mousemove", moveHandler);
+  //   return () => window.removeEventListener("mousemove", moveHandler);
+  // }, []);
 
   const [hue, setHue] = useState(220);
   const primaryColor = `hsl(${hue}, 60%, 25%)`;

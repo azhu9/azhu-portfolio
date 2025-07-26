@@ -98,7 +98,7 @@ function Layout({ tab, hue, onHueChange }: LayoutProps) {
               />
             }
             title="Rutgers IEEE Website"
-            description="As the Webmaster of Rutgers IEEE, I created a new club website using ReactJS and TailwindCSS front end. "
+            description="As the Webmaster of Rutgers IEEE, I created a new club website using ReactJS and TailwindCSS front end. Utilized UI components from flowbite-react and Meraki UI, and implemented lazy loading techniques to optimize image loading."
             liveLink="link"
             github="github"
           />
@@ -113,7 +113,7 @@ function Layout({ tab, hue, onHueChange }: LayoutProps) {
               />
             }
             title="Rutgers VEXU Website"
-            description="A static website built using ReactJS and TailwindCSS used to display team history and sponsors."
+            description="Built a new static website for Rutgers VEXU Robotics club using ReactJS and TailwindCSS used to display team history and sponsors. "
             liveLink="link"
             github="github"
           />
@@ -143,7 +143,7 @@ function Layout({ tab, hue, onHueChange }: LayoutProps) {
               />
             }
             title="Andy Zhu Portfolio Website"
-            description="A portfolio website built to display projects and experience. Made using React, TypeScript, TailwindCSS and react-grid-layout."
+            description="A portfolio website built to display projects and experience. Made using React, TypeScript, TailwindCSS and react-grid-layout. Made to be responsive across all platforms."
             liveLink="link"
             github="github"
           />

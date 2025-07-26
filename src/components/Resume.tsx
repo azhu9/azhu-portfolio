@@ -9,8 +9,23 @@ const Resume = () => {
         Resume
       </h1>
       <div className="flex gap-4 text-3xl dark:text-white text-black">
-        <RxOpenInNewWindow className="" />
-        <TfiDownload className="" />
+        <a
+          href="/public/assets/Andy_Zhu_Resume_2025.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="View Resume"
+          className="hover:opacity-100 opacity-60 duration-400"
+        >
+          <RxOpenInNewWindow />
+        </a>
+        <a
+          href="/public/assets/Andy_Zhu_Resume_2025.pdf"
+          download="Andy_Zhu_Resume_2025.pdf"
+          aria-label="Download Resume"
+          className="hover:opacity-100 opacity-60 duration-400"
+        >
+          <TfiDownload />
+        </a>
       </div>
     </div>
   );
