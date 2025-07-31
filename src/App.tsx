@@ -35,7 +35,7 @@ function App() {
   //   return () => window.removeEventListener("mousemove", moveHandler);
   // }, []);
 
-  const [hue, setHue] = useState(220);
+  const [hue, setHue] = useState(210); 
   const primaryColor = `hsl(${hue}, 60%, 25%)`;
   const secondaryColor = `hsl(${hue}, 40%, 15%)`;
 

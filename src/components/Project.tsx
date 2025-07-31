@@ -18,11 +18,11 @@ const Project: React.FC<ProjectProps> = ({
   return (
     <div className="background p-4 relative">
       <div className="">{image}</div>
-      <h1 className="mt-4 font-semibold text-2xl dark:text-white text-black">
+      <h1 className="mt-4 font-semibold text-2xl text-white">
         {title}
       </h1>
       <div className="mt-2">
-        <p className="lg:text-base md:text-sm text-lg dark:text-gray-300 text-gray-700 leading-normal">
+        <p className="lg:text-base md:text-sm text-lg text-gray-300 leading-normal">
           {description}
         </p>
       </div>

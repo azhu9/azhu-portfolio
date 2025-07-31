@@ -19,14 +19,14 @@ const ProfileCard: React.FC<ProfileProps> = ({ hue }) => {
       </div>
       <div className="flex w-full text-left p-4 h-full">
         <div className="flex flex-col justify-center items-center md:items-start text-center md:text-left w-full">
-          <h1 className="text-4xl md:text-5xl font-bold mb-2 dark:text-white text-black">
+          <h1 className="text-4xl md:text-5xl font-bold mb-2 text-white">
             Hi, I'm <span style={{ color: `${primaryColor}` }}>Andy Zhu</span>
           </h1>
-          <h2 className="text-lg md:text-xl mb-4 dark:text-white text-black">
+          <h2 className="text-lg md:text-xl mb-4 text-white ">
             Currently studying{" "}
             <span className="text-red-400">@ Rutgers University</span>
           </h2>
-          <p className="text-sm md:text-base dark:text-gray-300 text-gray-700 leading-relaxed">
+          <p className="text-sm md:text-base text-gray-300 leading-relaxed">
             Pursuing a BS in Computer Science, with a minor in Mathematics.
             Interested in Frontend Development and Software Engineering.
             Passionate about Robotics, Piano, and Technology News. Also an

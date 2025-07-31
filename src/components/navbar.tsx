@@ -61,8 +61,8 @@ const Navbar: React.FC<NavbarProps> = ({ tab, setTab }) => {
               ref={(el) => (tabRefs.current[index] = el!)}
               className={`flex items-center h-8 flex-1 cursor-pointer justify-center ${
                 tab === key
-                  ? "dark:text-white text-black"
-                  : "dark:text-white text-black"
+                  ? "text-white"
+                  : "text-white"
               }`}
               onClick={() => setTab(key)}
               style={{ zIndex: 30 }}

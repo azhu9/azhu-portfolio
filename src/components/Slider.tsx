@@ -82,7 +82,7 @@ export default function ColorSlider({ hue, onHueChange }: ColorSliderProps) {
 
         <div className="text-center space-y-2">
           <div className="space-y-1">
-            <p className="text-sm font-medium text-gray-700">
+            <p className="text-sm font-medium text-gray-300">
               Hue: {Math.round(hue)}°
             </p>
           </div>

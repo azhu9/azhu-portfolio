@@ -74,13 +74,13 @@ export default function Skills() {
   return (
     <div className="background pt-8 px-8">
       <div className="mb-12">
-        <p className="dark:text-gray-400 text-gray-600 font-light text-sm mb-2 tracking-wide">
+        <p className="text-gray-400 font-light text-sm mb-2 tracking-wide">
           What am I building with?
         </p>
-        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold dark:text-white text-black mb-4">
+        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
           My Tech Stack
         </h1>
-        <p className="dark:text-gray-300 text-gray-700 text-lg">
+        <p className="text-gray-300 text-lg">
           See my resume for a full list of skills/technologies!
         </p>
       </div>

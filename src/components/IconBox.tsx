@@ -12,7 +12,7 @@ const IconBox: React.FC<IconProps> = ({ icon, link }) => {
       href={link}
       className="text-7xl background flex items-center justify-center"
     >
-      <div className="dark:text-white text-black">{icon}</div>
+      <div className="text-white">{icon}</div>
     </a>
   );
 };

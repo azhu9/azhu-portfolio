@@ -99,8 +99,8 @@ function Layout({ tab, hue, onHueChange }: LayoutProps) {
             }
             title="Rutgers IEEE Website"
             description="As the Webmaster of Rutgers IEEE, I created a new club website using ReactJS and TailwindCSS front end. Utilized UI components from flowbite-react and Meraki UI, and implemented lazy loading techniques to optimize image loading."
-            liveLink="link"
-            github="github"
+            liveLink="https://rieee.vercel.app/"
+            github="https://github.com/azhu9/rieee"
           />
         );
       case "j":
@@ -114,8 +114,8 @@ function Layout({ tab, hue, onHueChange }: LayoutProps) {
             }
             title="Rutgers VEXU Website"
             description="Built a new static website for Rutgers VEXU Robotics club using ReactJS and TailwindCSS used to display team history and sponsors. "
-            liveLink="link"
-            github="github"
+            liveLink="https://www.scarrobotics.com/"
+            github="https://github.com/azhu9/VEX-SCAR-Website"
           />
         );
       case "l":
@@ -130,7 +130,7 @@ function Layout({ tab, hue, onHueChange }: LayoutProps) {
             title="Rutgers VEXU Programming Library"
             description="A Programming Library written in C++ for the VEXU Robotics Competition. This library includes driver control of robot movement and controller macros. Additionally it contains autonomous algorithms including PID and an Odometry feedback loop."
             liveLink="link"
-            github="github"
+            github="https://github.com/azhu9/VEX25-SCAR-24in"
           />
         );
       case "k":
@@ -144,8 +144,8 @@ function Layout({ tab, hue, onHueChange }: LayoutProps) {
             }
             title="Andy Zhu Portfolio Website"
             description="A portfolio website built to display projects and experience. Made using React, TypeScript, TailwindCSS and react-grid-layout. Made to be responsive across all platforms."
-            liveLink="link"
-            github="github"
+            liveLink="https://andyzhu.vercel.app"
+            github="https://github.com/azhu9/azhu-portfolio"
           />
         );
       case "x":

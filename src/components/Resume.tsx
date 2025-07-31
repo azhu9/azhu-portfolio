@@ -5,10 +5,10 @@ import { RxOpenInNewWindow } from "react-icons/rx";
 const Resume = () => {
   return (
     <div className="background flex justify-between items-center py-8 text-3xl px-10">
-      <h1 className="text-3xl md:text-4xl font-semibold dark:text-white text-black">
+      <h1 className="text-3xl md:text-4xl font-semiboldtext-white">
         Resume
       </h1>
-      <div className="flex gap-4 text-3xl dark:text-white text-black">
+      <div className="flex gap-4 text-3xl text-white">
         <a
           href="/public/assets/Andy_Zhu_Resume_2025.pdf"
           target="_blank"
