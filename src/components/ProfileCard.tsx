@@ -1,5 +1,5 @@
 // import React from "react";
-import profileImage from "../assets/placeholder.jpg"; // Replace with actual path or import
+import profileImage from "../assets/intro-pic.jpg"; // Replace with actual path or import
 
 interface ProfileProps {
   hue: number;
@@ -14,7 +14,7 @@ const ProfileCard: React.FC<ProfileProps> = ({ hue }) => {
         <img
           src={profileImage}
           alt="Andy Zhu"
-          className="rounded-xl object-cover w-[300px] max-w-full"
+          className="rounded-xl object-cover lg:w-[375px] md:w-[300px] max-w-full"
         />
       </div>
       <div className="flex w-full text-left p-4 h-full">
