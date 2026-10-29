@@ -1,224 +1,256 @@
-import { useEffect, useMemo, useState } from "react";
-import { Responsive, WidthProvider } from "react-grid-layout";
-import { TabKey } from "../App";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { Responsive, type Layouts } from "react-grid-layout";
 import {
-  ContactLayouts,
-  AboutLayout,
-  ProjectsLayouts,
-  keys,
+  TabKey,
+  breakpoints,
+  cols,
+  ROW_HEIGHT,
+  GAP,
+  tileIdsFor,
+  projectTileId,
+  loadLayouts,
+  saveLayouts,
+  clearLayouts,
+  defaultLayouts,
+  RESET_EVENT,
+  requestLayoutReset,
+  type Breakpoint,
 } from "../utils/layout.helper";
+import { links, projects } from "../data/content";
 
 import ProfileCard from "./ProfileCard";
 import Resume from "./Resume";
-import Map from "./Map";
+import Status from "./Status";
 import IconBox from "./IconBox";
 import Experience from "./Experience";
 import Skills from "./Skills";
 import Project from "./Project";
-import ThemeToggle from "./ThemeToggle";
+import Controls from "./Controls";
 import Slider from "./Slider";
+import GitHubTile from "./GitHubTile";
+import TypingTile from "./TypingTile";
 
-import vex from "../assets/vexbots.webp";
-import rieee from "../assets/rieeeSS.png";
-import scar from "../assets/scarSS.png";
 import rutgers from "../assets/rutgers.png";
-import portfolio from "../assets/portfolio.png";
-import ruopen from "../assets/ruopen.png";
-import belt from "../assets/beltcalc.png";
 
 import { VscGithubAlt } from "react-icons/vsc";
 import { BsMailboxFlag } from "react-icons/bs";
 import { RiLinkedinFill } from "react-icons/ri";
 
-interface LayoutProps {
-  tab: TabKey;
-  setTab: React.Dispatch<React.SetStateAction<TabKey>>;
-  left?: number;
-  sliderWidth?: number;
-  hue: number;
-  onHueChange: (hue: number) => void;
+// Measures the grid container ourselves instead of using RGL's WidthProvider,
+// which relies solely on ResizeObserver and can report 0 until it fires.
+function useContainerWidth() {
+  const ref = useRef<HTMLDivElement>(null);
+  const [width, setWidth] = useState(0);
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const measure = () => setWidth(el.offsetWidth);
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(el);
+    window.addEventListener("resize", measure);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", measure);
+    };
+  }, []);
+  return [ref, width] as const;
 }
 
-function Layout({ tab, hue, onHueChange }: LayoutProps) {
-  const [currentlayout, setCurrentLayout] = useState(AboutLayout);
+// Dragging is only enabled for mouse/trackpad users on wider screens, so
+// touch users can scroll the page normally.
+const DRAG_QUERY = "(pointer: fine) and (min-width: 768px)";
+
+function useCanDrag() {
+  const [canDrag, setCanDrag] = useState(() => window.matchMedia(DRAG_QUERY).matches);
+  useEffect(() => {
+    const mq = window.matchMedia(DRAG_QUERY);
+    const onChange = () => setCanDrag(mq.matches);
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
+  return canDrag;
+}
+
+// Moves a soft accent glow along tile borders under the cursor by updating
+// each tile's --mx/--my (see .tile::before in index.css).
+function useCursorGlow(ref: React.RefObject<HTMLElement>) {
+  useEffect(() => {
+    const root = ref.current;
+    if (!root || !window.matchMedia("(pointer: fine)").matches) return;
+    let frame = 0;
+    const onMove = (e: PointerEvent) => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        for (const tile of root.querySelectorAll<HTMLElement>(".tile")) {
+          const rect = tile.getBoundingClientRect();
+          tile.style.setProperty("--mx", `${e.clientX - rect.left}px`);
+          tile.style.setProperty("--my", `${e.clientY - rect.top}px`);
+        }
+      });
+    };
+    window.addEventListener("pointermove", onMove);
+    return () => {
+      window.removeEventListener("pointermove", onMove);
+      cancelAnimationFrame(frame);
+    };
+  }, [ref]);
+}
+
+// Tiles fade in one after another on the first load of a browser session.
+const INTRO_KEY = "intro-played";
+
+function useIntro() {
+  const [intro] = useState(() => {
+    try {
+      return !sessionStorage.getItem(INTRO_KEY);
+    } catch {
+      return false;
+    }
+  });
+  const [active, setActive] = useState(intro);
+  useEffect(() => {
+    if (!intro) return;
+    try {
+      sessionStorage.setItem(INTRO_KEY, "1");
+    } catch {
+      // storage unavailable; intro may replay
+    }
+    const id = setTimeout(() => setActive(false), 2000);
+    return () => clearTimeout(id);
+  }, [intro]);
+  return active;
+}
+
+const breakpointFor = (width: number): Breakpoint =>
+  width >= breakpoints.lg ? "lg" : width >= breakpoints.md ? "md" : "sm";
+
+interface LayoutProps {
+  tab: TabKey;
+  hue: number;
+  onHueChange: (hue: number) => void;
+  onOpenProject: (id: string) => void;
+  onOpenTyping: () => void;
+}
+
+function Layout({ tab, hue, onHueChange, onOpenProject, onOpenTyping }: LayoutProps) {
+  // Layouts are tied to the tab they were loaded for. When the tab changes they
+  // are swapped during render, so the new tab's tiles never render against the
+  // old tab's layout.
+  const [current, setCurrent] = useState(() => ({ tab, layouts: loadLayouts(tab) }));
+  let { layouts } = current;
+  if (current.tab !== tab) {
+    layouts = loadLayouts(tab);
+    setCurrent({ tab, layouts });
+  }
+  const setLayouts = (next: Layouts) => setCurrent({ tab, layouts: next });
+  const dragged = useRef(false);
+  const canDrag = useCanDrag();
+  const [containerRef, width] = useContainerWidth();
+  // RGL positions tiles without transforms on its first render, so tile
+  // animations stay off until it has settled to avoid a fly-in on load.
+  const [animate, setAnimate] = useState(false);
+  const measured = width > 0;
+  const intro = useIntro();
+  useCursorGlow(containerRef);
 
   useEffect(() => {
-    switch (tab) {
-      case TabKey.Projects:
-        setCurrentLayout(ProjectsLayouts);
-        break;
-      case TabKey.About:
-        setCurrentLayout(AboutLayout);
-        break;
-      case TabKey.Contact:
-        setCurrentLayout(ContactLayouts);
-        break;
-      default:
-        setCurrentLayout(AboutLayout);
-    }
+    if (!measured) return;
+    const id = setTimeout(() => setAnimate(true), 300);
+    return () => clearTimeout(id);
+  }, [measured]);
+
+  const handleLayoutChange = (_: unknown, all: Layouts) => {
+    if (!dragged.current) return;
+    dragged.current = false;
+    saveLayouts(tab, all);
+    setLayouts(all);
+  };
+
+  // The Reset button and the command menu both go through this event.
+  useEffect(() => {
+    const onReset = () => {
+      clearLayouts(tab);
+      setCurrent({ tab, layouts: defaultLayouts(tab) });
+    };
+    window.addEventListener(RESET_EVENT, onReset);
+    return () => window.removeEventListener(RESET_EVENT, onReset);
   }, [tab]);
 
-  const ResponsiveReactGridLayout = useMemo(
-    () => WidthProvider(Responsive),
-    []
+  // Intro stagger order follows the tiles' visual position (top to bottom).
+  const introOrder = new Map(
+    [...(layouts[breakpointFor(width)] ?? [])]
+      .sort((a, b) => a.y - b.y || a.x - b.x)
+      .map((l, i) => [l.i, i])
   );
 
-  const renderTileContent = (key: string) => {
-    switch (key) {
-      case "a":
-        return <ProfileCard hue={hue} />;
-      case "b":
-        return <Resume />;
-      case "c":
-        return <Map />;
-      case "d":
+  const renderTile = (id: string) => {
+    switch (id) {
+      case "logo":
         return (
-          <IconBox icon={<VscGithubAlt />} link="https://github.com/azhu9" />
+          <div className="tile flex items-center justify-center" title="Rutgers University">
+            <img src={rutgers} alt="Rutgers University" draggable={false} className="h-10 w-auto" />
+          </div>
         );
-      case "e":
-        return (
-          <IconBox icon={<BsMailboxFlag />} link="mailto:azhu625@gmail.com" />
-        );
-      case "f":
-        return (
-          <IconBox
-            icon={<RiLinkedinFill />}
-            link="https://www.linkedin.com/in/azhu0/"
-          />
-        );
-      case "g":
-        return <Skills />;
-      case "h":
-        return <Experience />;
-      case "i":
-        return (
-          <Project
-            image={
-              <img
-                src={rieee}
-                className=" h-64 md:h-72 lg:h-80 w-full object-cover rounded-2xl"
-              />
-            }
-            title="Rutgers IEEE Website"
-            description="As the Webmaster of Rutgers IEEE, I created a new club website using ReactJS and TailwindCSS front end. Utilized UI components from flowbite-react and Meraki UI, and implemented lazy loading techniques to optimize image loading."
-            liveLink="https://rieee.vercel.app/"
-            github="https://github.com/azhu9/rieee"
-          />
-        );
-      case "j":
-        return (
-          <Project
-            image={
-              <img
-                src={scar}
-                className="h-64 md:h-72 lg:h-80 w-full object-cover rounded-2xl"
-              />
-            }
-            title="Rutgers VEXU Website"
-            description="Built a new static website for Rutgers VEXU Robotics club using ReactJS and TailwindCSS used to display team history and sponsors. Updated with statistics of matches played and awards won at each competition."
-            liveLink="https://www.scarrobotics.com/"
-            github="https://github.com/azhu9/VEX-SCAR-Website"
-          />
-        );
-      case "l":
-        return (
-          <Project
-            image={
-              <img
-                src={vex}
-                className="h-64 md:h-72 lg:h-80 w-full object-cover rounded-2xl"
-              />
-            }
-            title="Rutgers VEXU Programming Library"
-            description="A Programming Library written in C++ for the VEXU Robotics Competition. This library includes driver control of robot movement and controller macros. Additionally it contains autonomous algorithms including PID and an Odometry feedback loop."
-            liveLink="link"
-            github="https://github.com/azhu9/VEX25-SCAR-24in"
-          />
-        );
-      case "k":
-        return (
-          <Project
-            image={
-              <img
-                src={portfolio}
-                className=" h-64 md:h-72 lg:h-80 w-full object-cover rounded-2xl"
-              />
-            }
-            title="Andy Zhu Portfolio Website"
-            description="A portfolio website built to display projects and experience. Made using React, TypeScript, TailwindCSS and react-grid-layout. Made to be responsive across all platforms."
-            liveLink="https://www.azhu.dev/"
-            github="https://github.com/azhu9/azhu-portfolio"
-          />
-        );
-      case "m":
-        return (
-          <Project
-            image={
-              <img
-                src={ruopen}
-                className=" h-64 md:h-72 lg:h-80 w-full object-cover rounded-2xl"
-              />
-            }
-            title="RU Open"
-            description="A Full Stack Application that allows Rutgers Students to find out if a given classroom has a class. Made with NextJS, Tailwind, and Supabase. Data pulled using a Python Webscraper on Rutgers Class Directories."
-            liveLink="https://ruopen.vercel.app/"
-            github="https://github.com/azhu9/ruopen"
-          />
-        );
-      case "n":
-        return (
-          <Project
-            image={
-              <img
-                src={belt}
-                className=" h-64 md:h-72 lg:h-80 w-full object-cover rounded-2xl"
-              />
-            }
-            title="Timing Belt Calculator"
-            description="A simple tool used to calculate tolerances and sizes for HTD 9mm, 15mm, and GT2 9mm type timing belts. Actively used by VEXU Team SCAR in our robot design process. Made with React and ShadCN"
-            liveLink="https://belt-calculator.vercel.app/"
-            github="https://github.com/azhu9/vex-belt-wizard"
-          />
-        );
-      case "x":
-        return <Block />;
-      case "y":
-        return <ThemeToggle />;
-      case "z":
+      case "controls":
+        return <Controls canDrag={canDrag} onReset={requestLayoutReset} />;
+      case "hue":
         return <Slider hue={hue} onHueChange={onHueChange} />;
-      default:
-        return <Block />;
+      case "hero":
+        return <ProfileCard />;
+      case "resume":
+        return <Resume />;
+      case "status":
+        return <Status />;
+      case "github":
+        return <IconBox icon={<VscGithubAlt />} label="GitHub" link={links.github} />;
+      case "linkedin":
+        return <IconBox icon={<RiLinkedinFill />} label="LinkedIn" link={links.linkedin} />;
+      case "email":
+        return <IconBox icon={<BsMailboxFlag />} label="Email" link={links.email} copy={links.emailAddress} />;
+      case "experience":
+        return <Experience />;
+      case "skills":
+        return <Skills />;
+      case "activity":
+        return <GitHubTile />;
+      case "typing":
+        return <TypingTile onOpen={onOpenTyping} />;
+      default: {
+        const project = projects.find((p) => projectTileId(p.id) === id);
+        return project ? <Project {...project} onOpen={() => onOpenProject(project.id)} /> : null;
+      }
     }
   };
 
   return (
-    <div className="w-auto max-w-[1280px] mx-auto flex justify-between b-10">
-      <ResponsiveReactGridLayout
-        className="m-auto w-full"
-        breakpoints={{ xl: 1920, lg: 1200, md: 768, sm: 480, xs: 200 }}
-        cols={{ xl: 6, lg: 6, md: 4, sm: 2, xs: 2 }}
-        rowHeight={188}
-        layouts={currentlayout}
-      >
-        {keys.map((key) => (
-          <div
-            key={key}
-            className="flex justify-center items-center shadow-[inset_0_0_0_2px_rgba(0,0,0,0)] rounded-3.5xl text-2xl text-[#FFFFFF] visible cursor-grab active:cursor-grabbing fade-in"
+    <div className="mx-auto w-full max-w-[1280px] px-2 pb-16">
+      <div ref={containerRef}>
+        {width > 0 && (
+          <Responsive
+            width={width}
+            className={`${canDrag ? "can-drag" : ""} ${animate ? "" : "no-anim"} ${intro ? "intro" : ""}`}
+            breakpoints={breakpoints}
+            cols={cols}
+            rowHeight={ROW_HEIGHT}
+            margin={[GAP, GAP]}
+            layouts={layouts}
+            isDraggable={canDrag}
+            isResizable={false}
+            draggableCancel="a, button, input, .no-drag"
+            onDragStop={() => (dragged.current = true)}
+            onLayoutChange={handleLayoutChange}
           >
-            {renderTileContent(key)}
-          </div>
-        ))}
-      </ResponsiveReactGridLayout>
+            {tileIdsFor(tab).map((id) => (
+              <div key={id} style={{ "--i": Math.min(introOrder.get(id) ?? 0, 16) } as React.CSSProperties}>
+                {renderTile(id)}
+              </div>
+            ))}
+          </Responsive>
+        )}
+      </div>
     </div>
   );
 }
-
-const Block = ({}) => {
-  return (
-    <div className="background flex items-center justify-center">
-      <img src={rutgers} className="h-auto max-w-8" />
-    </div>
-  );
-};
 
 export default Layout;

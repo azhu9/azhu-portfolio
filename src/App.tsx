@@ -1,86 +1,76 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Layout from "./components/layout";
 import Navbar from "./components/navbar";
+import ProjectModal from "./components/ProjectModal";
+import CommandMenu from "./components/CommandMenu";
+import Modal from "./components/Modal";
+import TypingTest from "./components/TypingTest";
+import { TabKey } from "./utils/layout.helper";
+import { profile, projects } from "./data/content";
 
-export enum TabKey {
-  About = "About",
-  Projects = "Projects",
-  Blog = "Blog",
-  Contact = "Contact",
+const DEFAULT_HUE = 210;
+
+function readHue() {
+  try {
+    const raw = localStorage.getItem("hue");
+    const stored = Number(raw);
+    return raw !== null && stored >= 0 && stored < 360 ? stored : DEFAULT_HUE;
+  } catch {
+    return DEFAULT_HUE;
+  }
 }
 
 function App() {
   const [tab, setTab] = useState<TabKey>(TabKey.About);
+  const [hue, setHue] = useState(readHue);
+  const [openProjectId, setOpenProjectId] = useState<string | null>(null);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [typingOpen, setTypingOpen] = useState(false);
+  const openProject = projects.find((p) => p.id === openProjectId);
+  const closeProject = useCallback(() => setOpenProjectId(null), []);
+  const closeMenu = useCallback(() => setMenuOpen(false), []);
+  const openTyping = useCallback(() => setTypingOpen(true), []);
+  const closeTyping = useCallback(() => setTypingOpen(false), []);
 
-  const tabOffsets: { [key in TabKey]: number } = {
-    About: 0,
-    Projects: 1,
-    Blog: 2,
-    Contact: 3,
-  };
+  // Ctrl+K / Cmd+K toggles the command menu from anywhere.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        setOpenProjectId(null);
+        setTypingOpen(false);
+        setMenuOpen((open) => !open);
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
 
-  const baseX = 520;
-  const baseW = 221.5;
-
-  const x = baseX + tabOffsets[tab];
-  const w = baseW;
-
-  // const [position, setPosition] = useState({ x: 0, y: 0 });
-
-  // useEffect(() => {
-  //   const moveHandler = (e: MouseEvent) => {
-  //     setPosition({ x: e.pageX, y: e.pageY });
-  //   };
-  //   window.addEventListener("mousemove", moveHandler);
-  //   return () => window.removeEventListener("mousemove", moveHandler);
-  // }, []);
-
-  const [hue, setHue] = useState(210); 
-  const primaryColor = `hsl(${hue}, 60%, 25%)`;
-  const secondaryColor = `hsl(${hue}, 40%, 15%)`;
+  // The hue drives every accent color via the --hue CSS variable.
+  useEffect(() => {
+    document.documentElement.style.setProperty("--hue", String(hue));
+    try {
+      localStorage.setItem("hue", String(hue));
+    } catch {
+      // storage unavailable
+    }
+  }, [hue]);
 
   return (
-    <main className="relative w-screen h-auto -mt-8">
-      <div className="absolute inset-0 bg-blue-500 z-0">
-        <div
-          className="absolute inset-0 z-0"
-          style={{
-            background: `linear-gradient(135deg, ${primaryColor} 0%, ${secondaryColor} 30%, #0f172a 70%, #000000 100%)`,
-          }}
-        />
-
-        <div
-          className="absolute inset-0 z-10 pointer-events-none"
-          style={{
-            backgroundImage: `
-              linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-              linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px)
-            `,
-            backgroundSize: "80px 80px",
-          }}
-        />
-        {/* <div
-          className="absolute inset-0 z-10 pointer-events-none"
-          style={{
-            backgroundColor: "#ffffff", // Tailwind's blue-500
-            WebkitMaskImage: `radial-gradient(circle 1000px at ${position.x}px ${position.y}px, black 0%, transparent 100%)`,
-            maskImage: `radial-gradient(circle 1000px at ${position.x}px ${position.y}px, black 0%, transparent 100%)`,
-            WebkitMaskRepeat: "no-repeat",
-            maskRepeat: "no-repeat",
-            transition: "mask-image 0.1s, -webkit-mask-image 0.1s",
-          }}
-        /> */}
-      </div>
-      <Navbar tab={tab} setTab={setTab} left={x} sliderWidth={w} />
-      <Layout
-        tab={tab}
-        setTab={setTab}
-        left={x}
-        sliderWidth={w}
-        hue={hue}
-        onHueChange={setHue}
-      />
-    </main>
+    <>
+      <div className="backdrop" aria-hidden />
+      <main className="relative">
+        <Navbar tab={tab} setTab={setTab} onOpenMenu={() => setMenuOpen(true)} />
+        <Layout tab={tab} hue={hue} onHueChange={setHue} onOpenProject={setOpenProjectId} onOpenTyping={openTyping} />
+      </main>
+      {openProject && <ProjectModal project={openProject} onClose={closeProject} />}
+      {typingOpen && (
+        <Modal label="Typing test" onClose={closeTyping}>
+          <TypingTest targetWpm={profile.typingWpm} />
+        </Modal>
+      )}
+      {menuOpen && <CommandMenu onClose={closeMenu} setTab={setTab} onOpenProject={setOpenProjectId} onOpenTyping={openTyping} />}
+    </>
   );
 }
 

@@ -1,38 +1,34 @@
-// import React from "react";
-import profileImage from "../assets/intro-pic.jpg"; // Replace with actual path or import
+import profileImage from "../assets/intro-pic.jpg";
+import { profile } from "../data/content";
 
-interface ProfileProps {
-  hue: number;
-}
-
-const ProfileCard: React.FC<ProfileProps> = ({ hue }) => {
-  const primaryColor = `hsl(${hue}, 90%, 50%)`;
-
+const ProfileCard = () => {
   return (
-    <div className="flex flex-col background md:flex-row rounded-3xl p-2 text-white w-full h-full">
-      <div className="w-full md:w-auto hidden md:flex justify-center items-center p-4">
-        <img
-          src={profileImage}
-          alt="Andy Zhu"
-          className="rounded-xl object-cover lg:w-[375px] md:w-[300px] max-w-full"
-        />
-      </div>
-      <div className="flex w-full text-left p-4 h-full">
-        <div className="flex flex-col justify-center items-center md:items-start text-center md:text-left w-full">
-          <h1 className="text-4xl md:text-5xl font-bold mb-2 text-white">
-            Hi, I'm <span style={{ color: `${primaryColor}` }}>Andy Zhu</span>
+    <div className="tile flex gap-6 p-4 md:p-5">
+      <img
+        src={profileImage}
+        alt={profile.name}
+        draggable={false}
+        className="hidden h-full w-[240px] shrink-0 rounded-2xl object-cover md:block lg:w-[300px]"
+      />
+      <div className="flex min-w-0 flex-col justify-center gap-4 p-2">
+        <div>
+          <h1 className="font-display text-4xl font-bold tracking-tight text-fg lg:text-5xl">
+            Hi, I'm <span className="text-accent">{profile.name}</span>
           </h1>
-          <h2 className="text-lg md:text-xl mb-4 text-white ">
-            Currently studying{" "}
-            <span className="text-red-400">@ Rutgers University</span>
+          <h2 className="mt-2 text-lg text-fg/90 lg:text-xl">
+            CS + Math <span className="text-red-500">@ {profile.school}</span>
+            <span className="text-muted"> · Class of {profile.graduation.split(" ")[1]}</span>
           </h2>
-          <p className="text-sm md:text-base text-gray-300 leading-relaxed">
-            Pursuing a BS in Computer Science, with a minor in Mathematics.
-            Interested in Frontend Development and Software Engineering.
-            Passionate about Robotics, Piano, and Technology News. Also an
-            enthusiast in interface/web design and 3D modeling. Currently
-            seeking Summer 2026 internships!
-          </p>
+        </div>
+        <p className="text-sm leading-relaxed text-muted lg:text-base">{profile.bio}</p>
+        <div className="flex flex-wrap gap-2 text-sm">
+          <span className="inline-flex items-center gap-2 rounded-full bg-accent/15 px-3 py-1 text-fg ring-1 ring-accent/30">
+            <span className="relative flex size-2">
+              <span className="absolute inline-flex size-full animate-ping rounded-full bg-accent opacity-75" />
+              <span className="relative inline-flex size-2 rounded-full bg-accent" />
+            </span>
+            {profile.lookingFor}
+          </span>
         </div>
       </div>
     </div>

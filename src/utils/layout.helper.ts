@@ -1,214 +1,160 @@
-export  const keys = [
-    "a", //about
-    "b", //resume
-    "c", //google maps
-    "d", //icon 1
-    "e", //icon 2
-    "f", //icon 3
-    "g", //skills
-    "h", //experience
-    "i", //project 1
-    "j", //project 2
-    "k", //project 3
-    "l", //project 4
-    "m", //project 5
-    "n", //project 6
-    "x", //filler
-    "y", //theme toggle
-    "z", //slider
-  ];
+import type { Layout, Layouts } from "react-grid-layout";
+import { projects } from "../data/content";
 
+export enum TabKey {
+  About = "About",
+  Projects = "Projects",
+  Contact = "Contact",
+}
 
-export const AboutLayout = {
-    lg: [
-      { i: "x", x: 0, y: 0, w: 1, h: 0.5, static: true },
-      { i: "y", x: 1, y: 0, w: 1.5, h: 0.5, static: true },
-      { i: "z", x: 2.5, y: 0, w: 3.5, h: 0.5, static: true }, 
+export type Breakpoint = "lg" | "md" | "sm";
+type Size = [w: number, h: number];
 
-      { i: "a", x: 0, y: 0.5, w: 4, h: 2, static: true },
-      { i: "b", x: 4, y: 0.5, w: 2, h: 0.5, static: true },
-      { i: "c", x: 4, y: 1, w: 2, h: 1.5, static: true },
-      { i: "d", x: 0, y: 2.5, w: 1, h: 1, static: true },
-      { i: "e", x: 1, y: 2.5, w: 1, h: 1, static: true },
-      { i: "f", x: 2, y: 2.5, w: 1, h: 1, static: true },
-      { i: "g", x: 0, y: 3.5, w: 3, h: 2, static: true },
-      { i: "h", x: 3, y: 2.5, w: 3, h: 3, static: true },
-      { i: "i", x: 0, y: 5.5, w: 3, h: 3, static: true },
-      { i: "j", x: 3, y: 5.5, w: 3, h: 3, static: true },
-      { i: "k", x: 0, y: 8.5, w: 3, h: 3, static: true },
-      { i: "l", x: 3, y: 8.5, w: 3, h: 3, static: true },
-      { i: "m", x: 0, y: 11.5, w: 3, h: 3, static: true },
-      { i: "n", x: 3, y: 11.5, w: 3, h: 3, static: true },
-     
+export const breakpoints: Record<Breakpoint, number> = { lg: 1200, md: 768, sm: 0 };
+export const cols: Record<Breakpoint, number> = { lg: 6, md: 4, sm: 2 };
+export const ROW_HEIGHT = 80;
+export const GAP = 16;
 
-    ],
-    md: [
-      { i: "x", x: 0, y: 0, w: 1, h: 0.5, static: true },
-      { i: "y", x: 1, y: 0, w: 1, h: 0.5, static: true },
-      { i: "z", x: 2, y: 0, w: 2, h: 0.5, static: true },
+// Default tile sizes in grid units (columns x rows) for each breakpoint.
+const sizes: Record<string, Record<Breakpoint, Size>> = {
+  logo: { lg: [1, 1], md: [1, 1], sm: [1, 1] },
+  controls: { lg: [2, 1], md: [1, 1], sm: [1, 1] },
+  hue: { lg: [3, 1], md: [2, 1], sm: [2, 1] },
+  hero: { lg: [4, 4], md: [4, 4], sm: [2, 6] },
+  resume: { lg: [2, 1], md: [2, 1], sm: [2, 1] },
+  status: { lg: [2, 3], md: [2, 3], sm: [2, 3] },
+  github: { lg: [1, 2], md: [1, 1], sm: [1, 1] },
+  linkedin: { lg: [1, 2], md: [1, 1], sm: [1, 1] },
+  email: { lg: [1, 2], md: [2, 1], sm: [2, 1] },
+  experience: { lg: [3, 12], md: [2, 10], sm: [2, 12] },
+  skills: { lg: [3, 5], md: [2, 5], sm: [2, 5] },
+  activity: { lg: [3, 3], md: [2, 3], sm: [2, 4] },
+  typing: { lg: [3, 2], md: [2, 2], sm: [2, 2] },
+  project: { lg: [2, 5], md: [2, 5], sm: [2, 5] },
+};
 
+export const projectTileId = (id: string) => `project:${id}`;
+const projectTiles = projects.map((p) => projectTileId(p.id));
+const featuredTiles = projects.filter((p) => p.featured).map((p) => projectTileId(p.id));
 
-      { i: "a", x: 0, y: 0.5, w: 4, h: 2, static: true },
-      { i: "b", x: 2, y: 2.5, w: 2, h: 0.5, static: true },
-      { i: "c", x: 2, y: 3, w: 2, h: 1.5, static: true },
-      { i: "d", x: 0, y: 2.5, w: 1, h: 1, static: true },
-      { i: "e", x: 1, y: 2.5, w: 1, h: 1, static: true },
-      { i: "f", x: 0, y: 3.5, w: 2, h: 1, static: true },
-      { i: "g", x: 0, y: 4.5, w: 2, h: 2, static: true },
-      { i: "h", x: 2, y: 4.5, w: 2, h: 2, static: true },
-      { i: "i", x: 0, y: 6.5, w: 2, h: 3, static: true },
-      { i: "j", x: 2, y: 6.5, w: 2, h: 3, static: true },
-      { i: "k", x: 0, y: 9.5, w: 2, h: 3, static: true },
-      { i: "l", x: 2, y: 9.5, w: 2, h: 3, static: true },
-    ],
-    sm: [
-      { i: "x", x: 0, y: 0, w: 1, h: 0.5, static: true },
-      { i: "y", x: 1, y: 0, w: 1, h: 0.5, static: true },
-      { i: "z", x: 0, y: 0.5, w: 2, h: 0.5, static: true },
+type Override = Partial<Record<Breakpoint, Size>>;
+type TileOrder = (string | [string, Override])[];
 
-      { i: "a", x: 0, y: 1, w: 2, h: 2, static: true },
-      { i: "b", x: 0, y: 3, w: 2, h: 0.75, static: true },
-      { i: "c", x: 0, y: 3.75, w: 2, h: 1.25, static: true },
-      { i: "d", x: 0, y: 5, w: 1, h: 1, static: true },
-      { i: "e", x: 1, y: 5, w: 1, h: 1, static: true },
-      { i: "f", x: 0, y: 6, w: 2, h: 1, static: true },
-      { i: "g", x: 0, y: 7, w: 2, h: 2, static: true },
-      { i: "h", x: 0, y: 9, w: 2, h: 2, static: true },
-      { i: "i", x: 0, y: 11, w: 2, h: 3, static: true },
-      { i: "j", x: 0, y: 14, w: 2, h: 3, static: true },
-      { i: "k", x: 0, y: 17, w: 2, h: 3, static: true },
-      { i: "l", x: 0, y: 20, w: 2, h: 3, static: true },
-    ],
-  };
+// Order tiles are packed in for each tab, with optional per-tab size overrides.
+const tabOrders: Record<TabKey, TileOrder> = {
+  [TabKey.About]: [
+    "logo", "controls", "hue",
+    "hero", "resume", "status",
+    "github", "linkedin", "email",
+    "experience", "skills", "activity", "typing",
+    ...featuredTiles,
+  ],
+  [TabKey.Projects]: [
+    "logo", "controls", "hue",
+    ...projectTiles,
+    "experience", "skills", "activity", "typing",
+    "github", "linkedin", "email",
+    "hero", "resume", "status",
+  ],
+  [TabKey.Contact]: [
+    "logo", "controls", "hue",
+    ["github", { lg: [2, 2] }],
+    ["linkedin", { lg: [2, 2] }],
+    ["email", { lg: [2, 2] }],
+    ["status", { lg: [3, 3] }],
+    ["resume", { lg: [3, 1] }],
+    "experience",
+    "skills",
+    "activity",
+    "typing",
+    ["hero", { lg: [6, 4] }],
+    ...featuredTiles,
+  ],
+};
 
+// Tiles shown on each tab (the Projects tab shows every project, the others
+// only featured ones).
+export const tileIdsFor = (tab: TabKey) =>
+  tabOrders[tab].map((t) => (typeof t === "string" ? t : t[0]));
 
+const sizeFor = (id: string, bp: Breakpoint, override?: Override): Size =>
+  override?.[bp] ?? sizes[id.startsWith("project:") ? "project" : id][bp];
 
- export const ProjectsLayouts = {
-    lg: [
-      { i: "i", x: 0, y: 0, w: 3, h: 3, static: true },
-      { i: "j", x: 3, y: 0, w: 3, h: 3, static: true },
-      { i: "k", x: 0, y: 3, w: 3, h: 3, static: true },
-      { i: "l", x: 3, y: 3, w: 3, h: 3, static: true },
-      { i: "m", x: 0, y: 6, w: 3, h: 3, static: true },
-      { i: "n", x: 3, y: 6, w: 3, h: 3, static: true },
-      { i: "h", x: 0, y: 9, w: 3, h: 3, static: true },
-      { i: "g", x: 3, y: 9, w: 3, h: 2, static: true },
-      { i: "d", x: 3, y: 11, w: 1, h: 1, static: true },
-      { i: "e", x: 4, y: 11, w: 1, h: 1, static: true },
-      { i: "f", x: 5, y: 11, w: 1, h: 1, static: true },
-      { i: "b", x: 0, y: 12, w: 2, h: 0.5, static: true },
-      { i: "c", x: 0, y: 12.5, w: 2, h: 1.5, static: true },
-      { i: "a", x: 2, y: 12, w: 4, h: 2, static: true },
-      
-      { i: "x", x: 0, y: 14, w: 1, h: 0.5, static: true },
-      { i: "y", x: 1, y: 14, w: 1.5, h: 0.5, static: true },
-      { i: "z", x: 2.5, y: 14, w: 3.5, h: 0.5, static: true }, 
-    ],
-    md: [
-      { i: "i", x: 0, y: 0, w: 2, h: 3, static: true },
-      { i: "j", x: 2, y: 0, w: 2, h: 3, static: true },
-      { i: "k", x: 0, y: 3, w: 2, h: 3, static: true },
-      { i: "l", x: 2, y: 3, w: 2, h: 3, static: true },
-      { i: "m", x: 0, y: 6, w: 2, h: 3, static: true },
-      { i: "n", x: 2, y: 6, w: 2, h: 3, static: true },
-      { i: "g", x: 0, y: 9, w: 2, h: 2, static: true },
-      { i: "h", x: 2, y: 9, w: 2, h: 3, static: true },
-      { i: "a", x: 0, y: 13, w: 3, h: 2, static: true },
-      { i: "b", x: 0, y: 11, w: 2, h: 0.5, static: true },
-      { i: "c", x: 0, y: 11.5, w: 2, h: 1.5, static: true },
-      { i: "d", x: 2, y: 12, w: 1, h: 1, static: true },
-      { i: "e", x: 3, y: 12, w: 1, h: 1, static: true },
-      { i: "f", x: 3, y: 13, w: 1, h: 2, static: true },
+// Skyline packing: each tile goes to the highest spot it fits, leftmost on ties.
+function pack(order: TileOrder, bp: Breakpoint): Layout[] {
+  const heights = new Array(cols[bp]).fill(0);
+  return order.map((entry) => {
+    const [id, override] = typeof entry === "string" ? [entry] : entry;
+    const [w, h] = sizeFor(id, bp, override);
+    let bestX = 0;
+    let bestY = Infinity;
+    for (let x = 0; x + w <= cols[bp]; x++) {
+      const y = Math.max(...heights.slice(x, x + w));
+      if (y < bestY) {
+        bestX = x;
+        bestY = y;
+      }
+    }
+    for (let x = bestX; x < bestX + w; x++) heights[x] = bestY + h;
+    return { i: id, x: bestX, y: bestY, w, h };
+  });
+}
 
-      { i: "x", x: 0, y: 15, w: 1, h: 0.5, static: true },
-      { i: "y", x: 1, y: 15, w: 1, h: 0.5, static: true },
-      { i: "z", x: 2, y: 15, w: 2, h: 0.5, static: true },
-    ],
-    sm: [
-      { i: "i", x: 0, y: 0, w: 2, h: 3, static: true },
-      { i: "j", x: 0, y: 3, w: 2, h: 3, static: true },
-      { i: "k", x: 0, y: 6, w: 2, h: 3, static: true },
-      { i: "l", x: 0, y: 9, w: 2, h: 3, static: true },
-      { i: "m", x: 0, y: 12, w: 2, h: 3, static: true },
-      { i: "n", x: 0, y: 15, w: 2, h: 3, static: true },
+export const defaultLayouts = (tab: TabKey): Layouts => ({
+  lg: pack(tabOrders[tab], "lg"),
+  md: pack(tabOrders[tab], "md"),
+  sm: pack(tabOrders[tab], "sm"),
+});
 
-      { i: "g", x: 0, y: 18, w: 2, h: 2, static: true },
-      { i: "h", x: 0, y: 20, w: 2, h: 2, static: true },
-      { i: "a", x: 0, y: 22, w: 2, h: 2, static: true },
-      { i: "b", x: 0, y: 24, w: 2, h: 0.75, static: true },
-      { i: "c", x: 0, y: 24.75, w: 2, h: 1.25, static: true },
-      { i: "d", x: 0, y: 26, w: 1, h: 1, static: true },
-      { i: "e", x: 1, y: 26, w: 1, h: 1, static: true },
-      { i: "f", x: 0, y: 27, w: 2, h: 1, static: true },
+// Saved layouts persist in localStorage, one set per tab.
+const STORAGE_KEY = "azhu-layouts-v2";
 
-      { i: "x", x: 0, y: 28, w: 1, h: 0.5, static: true },
-      { i: "y", x: 1, y: 28, w: 1, h: 0.5, static: true },
-      { i: "z", x: 0, y: 28.5, w: 2, h: 0.5, static: true },
-    ],
-  };
+type SavedLayouts = Partial<Record<TabKey, Layouts>>;
 
+function readSaved(): SavedLayouts {
+  try {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "{}");
+  } catch {
+    return {};
+  }
+}
 
-  
-  export const ContactLayouts = {
-    lg: [
-      { i: "d", x: 0, y: 0, w: 2, h: 1, static: true },
-      { i: "e", x: 0, y: 1, w: 2, h: 1, static: true },
-      { i: "c", x: 2, y: 0, w: 2, h: 2, static: true },
-      { i: "f", x: 4, y: 0, w: 2, h: 2, static: true },
-      { i: "b", x: 3, y: 2, w: 3, h: 1, static: true },
-      { i: "a", x: 3, y: 3, w: 3, h: 3, static: true },
-      { i: "h", x: 0, y: 2, w: 3, h: 4, static: true },
-      { i: "g", x: 0, y: 6, w: 6, h: 2, static: true },
-      { i: "i", x: 0, y: 8, w: 3, h: 3, static: true },
-      { i: "j", x: 3, y: 8, w: 3, h: 3, static: true },
-      { i: "k", x: 0, y: 11, w: 3, h: 3, static: true },
-      { i: "l", x: 3, y: 11, w: 3, h: 3, static: true },
-      { i: "m", x: 0, y: 14, w: 3, h: 3, static: true },
-      { i: "n", x: 3, y: 14, w: 3, h: 3, static: true },
+function writeSaved(saved: SavedLayouts) {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(saved));
+  } catch {
+    // storage unavailable; layouts just won't persist
+  }
+}
 
-      { i: "x", x: 0, y: 17, w: 1, h: 0.5, static: true },
-      { i: "y", x: 1, y: 17, w: 1, h: 0.5, static: true },
-      { i: "z", x: 2, y: 17, w: 4, h: 0.5, static: true },
-    ],
-    md: [
-      { i: "d", x: 0, y: 0, w: 1, h: 1, static: true },
-      { i: "e", x: 0, y: 1, w: 1, h: 1, static: true },
-      { i: "c", x: 1, y: 0, w: 2, h: 2, static: true },
-      { i: "f", x: 3, y: 0, w: 1, h: 2, static: true },
-      { i: "b", x: 0, y: 2, w: 4, h: 0.75, static: true },
-      { i: "a", x: 0, y: 2.75, w: 4, h: 2.25, static: true },
-      { i: "g", x: 0, y: 5, w: 6, h: 2, static: true },
-      { i: "h", x: 0, y: 7, w: 4, h: 4, static: true },
-      { i: "i", x: 0, y: 11, w: 2, h: 3, static: true },
-      { i: "j", x: 2, y: 11, w: 2, h: 3, static: true },
-      { i: "k", x: 0, y: 14, w: 2, h: 3, static: true },
-      { i: "l", x: 2, y: 14, w: 2, h: 3, static: true },
-      { i: "m", x: 0, y: 17, w: 2, h: 3, static: true },
-      { i: "n", x: 2, y: 17, w: 2, h: 3, static: true },
+// A saved layout is only reused if it has exactly the current tiles at their
+// current sizes, so adding a project or resizing a tile falls back to the
+// generated layout.
+function isValid(tab: TabKey, layouts: Layouts | undefined): layouts is Layouts {
+  if (!layouts) return false;
+  const defaults = defaultLayouts(tab);
+  const signature = (layout: Layout[]) =>
+    layout.map((l) => `${l.i}:${l.w}x${l.h}`).sort().join();
+  return (Object.keys(cols) as Breakpoint[]).every(
+    (bp) => !!layouts[bp] && signature(layouts[bp]) === signature(defaults[bp])
+  );
+}
 
-      { i: "x", x: 0, y: 20, w: 1, h: 0.5, static: true },
-      { i: "y", x: 1, y: 20, w: 1, h: 0.5, static: true },
-      { i: "z", x: 2, y: 20, w: 2, h: 0.5, static: true },
-    ],
-    sm: [
-      { i: "d", x: 0, y: 0, w: 1, h: 1, static: true },
-      { i: "e", x: 1, y: 0, w: 1, h: 1, static: true },
-      { i: "f", x: 0, y: 1, w: 2, h: 1, static: true },
-      { i: "c", x: 0, y: 2, w: 2, h: 2.25, static: true },
-      { i: "b", x: 0, y: 4.25, w: 4, h: 0.75, static: true },
-      { i: "a", x: 0, y: 5, w: 4, h: 2.5, static: true },
-      { i: "g", x: 0, y: 7.5, w: 6, h: 2, static: true },
-      { i: "h", x: 0, y: 9.5, w: 4, h: 3.5, static: true },
-      { i: "i", x: 0, y: 13, w: 2, h: 3, static: true },
-      { i: "j", x: 0, y: 16, w: 2, h: 3, static: true },
-      { i: "k", x: 0, y: 19, w: 2, h: 3, static: true },
-      { i: "l", x: 0, y: 22, w: 2, h: 3, static: true },
-      { i: "m", x: 0, y: 25, w: 2, h: 3, static: true },
-      { i: "n", x: 0, y: 28, w: 2, h: 3, static: true },
+export function loadLayouts(tab: TabKey): Layouts {
+  const saved = readSaved()[tab];
+  return isValid(tab, saved) ? saved : defaultLayouts(tab);
+}
 
-      { i: "x", x: 0, y: 31, w: 1, h: 0.5, static: true },
-      { i: "y", x: 1, y: 31, w: 1, h: 0.5, static: true },
-      { i: "z", x: 0, y: 31.5, w: 2, h: 0.5, static: true },
-    ],
-  };
+export function saveLayouts(tab: TabKey, layouts: Layouts) {
+  writeSaved({ ...readSaved(), [tab]: layouts });
+}
 
+// Lets other UI (e.g. the command menu) reset the current tab's layout.
+export const RESET_EVENT = "portfolio:reset-layout";
+export const requestLayoutReset = () => window.dispatchEvent(new Event(RESET_EVENT));
+
+export function clearLayouts(tab: TabKey) {
+  const saved = readSaved();
+  delete saved[tab];
+  writeSaved(saved);
+}
