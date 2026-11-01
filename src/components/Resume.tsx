@@ -1,28 +1,28 @@
-// import React from "react";
 import { TfiDownload } from "react-icons/tfi";
 import { RxOpenInNewWindow } from "react-icons/rx";
+import { profile } from "../data/content";
 
 const Resume = () => {
   return (
-    <div className="background flex justify-between items-center py-8 text-3xl px-10">
-      <h1 className="text-3xl md:text-4xl font-semiboldtext-white">
-        Resume
-      </h1>
-      <div className="flex gap-4 text-3xl text-white">
+    <div className="tile flex items-center justify-between px-8">
+      <h2 className="font-display text-2xl font-semibold text-fg md:text-3xl">Resume</h2>
+      <div className="flex gap-4 text-2xl text-fg">
         <a
-          href="/public/assets/Andy_Zhu_Resume_2025.pdf"
+          href={profile.resume}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="View Resume"
-          className="hover:opacity-100 opacity-60 duration-400"
+          aria-label="View resume"
+          title="View"
+          className="opacity-60 transition-opacity hover:text-accent hover:opacity-100"
         >
           <RxOpenInNewWindow />
         </a>
         <a
-          href="/public/assets/Andy_Zhu_Resume_2025.pdf"
-          download="Andy_Zhu_Resume_2025.pdf"
-          aria-label="Download Resume"
-          className="hover:opacity-100 opacity-60 duration-400"
+          href={profile.resume}
+          download="Andy_Zhu_Resume.pdf"
+          aria-label="Download resume"
+          title="Download"
+          className="opacity-60 transition-opacity hover:text-accent hover:opacity-100"
         >
           <TfiDownload />
         </a>

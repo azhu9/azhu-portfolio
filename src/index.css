@@ -1,137 +1,347 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Geist:wght@100..900&display=swap');
-
-@import "../node_modules/react-grid-layout/css/styles.css";
-@import "../node_modules/react-resizable/css/styles.css";
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-.font-geist {
-  font-family: "Geist", sans-serif;
-  font-optical-sizing: auto;
-  font-style: normal;
-}
-.font-dm {
-  font-family: "DM Sans", sans-serif;
-  font-optical-sizing: auto;
-  font-style: normal;
-}
-
-
-h1 {
-  font-family: "Geist", sans-serif;
-  font-optical-sizing: auto;
-  font-style: normal;
+/* Colors are HSL channels so Tailwind can apply opacity (e.g. bg-accent/20).
+   --hue is set from the hue slider. */
+:root {
+  --hue: 210;
+  --bg: 210 40% 98%;
+  --fg: 222 47% 11%;
+  --muted: 215 16% 35%;
+  --line: 222 47% 11%;
+  --card: 0 0% 100%;
+  --card-alpha: 0.6;
+  --accent: var(--hue) 75% 42%;
+  --accent-fg: 0 0% 100%;
+  color-scheme: light;
 }
 
-p,h2,h3 {
-  font-family: "DM Sans", sans-serif;
-  font-optical-sizing: auto;
-  font-style: normal;
+.dark {
+  --bg: 222 47% 5%;
+  --fg: 0 0% 100%;
+  --muted: 220 9% 68%;
+  --line: 0 0% 100%;
+  --card: 0 0% 6%;
+  --card-alpha: 0.45;
+  --accent: var(--hue) 90% 64%;
+  --accent-fg: 222 47% 8%;
+  color-scheme: dark;
 }
 
 body {
   margin: 0;
-  padding: 0;
-  overflow-y: auto; /* Ensure the entire page can scroll vertically */
-  height: 100%; /* Allow body to expand and scroll with content */
-  scrollbar-width: none;
+  min-height: 100vh;
+  background: hsl(var(--bg));
+  color: hsl(var(--fg));
+  font-family: "DM Sans", sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
-*{
-  transition-property: all;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 300ms;
+::selection {
+  background: hsl(var(--accent) / 0.3);
 }
 
-:root {
-  --light: rgb(255 255 255 /0.15);
-  --dark: rgb(15 15 15 /0.3);
-
-}
-
-#root {
-  position: relative;
-  z-index: 2;
-  min-height: 100vh; /* Ensure the root element takes at least full viewport height */
-  overflow: visible; /* Make sure scrolling isn't restricted to just the root container */
-}
-
-
-.background {
-  background-color: var(--light);
-  inset: 0;
-  backdrop-filter: blur(4px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  width: 100%;
-  height: 100%;
-  border-radius: 1.5rem;
-  transition: all 200ms ease-in-out;
-  z-index: 0;
-}
-.background:hover {
-  transform: scale(1.02);
-}
-
-.dark .background {
-  background-color: var(--dark);
-}
-
-.glass{
-    background-color: #141414b3;
-    box-shadow: 0 4px 6px -1px #0000001a, 0 2px 4px -2px #0000001a;
-    border-radius: 25px;
-    transition: all .4s ease-in-out;
-}
-
-
-.overlay {
+/* Fixed gradient + grid lines behind everything */
+.backdrop {
   position: fixed;
-  top: 0;
-  left: 0;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(to right, hsl(var(--line) / 0.05) 1px, transparent 1px) 0 0 / 80px 80px,
+    linear-gradient(to bottom, hsl(var(--line) / 0.05) 1px, transparent 1px) 0 0 / 80px 80px,
+    linear-gradient(135deg, hsl(var(--hue) 70% 88%) 0%, hsl(var(--hue) 40% 94%) 35%, #f8fafc 70%, #ffffff 100%);
+}
+
+.dark .backdrop {
+  background:
+    linear-gradient(to right, hsl(var(--line) / 0.05) 1px, transparent 1px) 0 0 / 80px 80px,
+    linear-gradient(to bottom, hsl(var(--line) / 0.05) 1px, transparent 1px) 0 0 / 80px 80px,
+    linear-gradient(135deg, hsl(var(--hue) 60% 25%) 0%, hsl(var(--hue) 40% 15%) 30%, #0f172a 70%, #000000 100%);
+}
+
+/* Glass card used by every tile */
+.tile {
+  position: relative;
   width: 100%;
   height: 100%;
-  background-image: url('./public/static.png');
-  background-repeat: repeat;
+  overflow: hidden;
+  border-radius: 1.5rem;
+  background: hsl(var(--card) / var(--card-alpha));
+  border: 1px solid hsl(var(--line) / 0.1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: border-color 200ms, box-shadow 200ms, transform 200ms;
+}
+
+/* Cursor glow: --mx/--my are set per tile from the pointer position (see
+   useCursorGlow). ::before lights up the border, ::after tints the surface. */
+.tile {
+  isolation: isolate;
+}
+
+.tile::before,
+.tile::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
   pointer-events: none;
-  z-index: 3;
-  opacity: 1.5%;
+  opacity: 0;
+  transition: opacity 300ms;
 }
 
-.react-grid-item.react-grid-placeholder {
-  background: rgba(211, 211, 211, 0.99) none repeat scroll 0% 0%;
-  transition-duration: 100ms;
-  z-index: 2;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  -o-user-select: none;
-  user-select: none;
-  border-radius: 25px;
-  transition: all 400ms ease 0s !important;
-  will-change: transform;
+.tile::before {
+  z-index: 1;
+  padding: 1px;
+  background: radial-gradient(320px circle at var(--mx, -999px) var(--my, -999px), hsl(var(--accent) / 0.8), transparent 45%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
 }
 
-
-.react-grid-item {
-  /* transition: transform 500ms ease 0s !important; */
-  transition: 400ms ease 0s;
-  /* will-change: transform; */
+.tile::after {
+  z-index: -1;
+  background: radial-gradient(420px circle at var(--mx, -999px) var(--my, -999px), hsl(var(--accent) / 0.08), transparent 45%);
 }
 
-.m-50 {
-  margin: 50px;
-}
-
-@-moz-document url-prefix() { /* Disable scrollbar Firefox */
-  html{
-    scrollbar-width: none;
+@media (pointer: fine) {
+  body:hover .tile::before,
+  body:hover .tile::after {
+    opacity: 1;
   }
 }
 
-::-webkit-scrollbar { width: 0px; }
-::-webkit-scrollbar-track { background-color: rgba(18, 18, 18, 0.99) }
-::-webkit-scrollbar-thumb { background-color: darkcyan }
+.project-card {
+  cursor: pointer;
+}
 
+.project-card:focus-visible {
+  outline: 2px solid hsl(var(--accent));
+  outline-offset: 2px;
+}
 
+/* First-visit intro: tiles rise in, staggered by --i (visual order) */
+.intro .react-grid-item > .tile {
+  animation: tile-in 600ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation-delay: calc(var(--i, 0) * 45ms);
+}
+
+@keyframes tile-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.98);
+  }
+}
+
+/* Modals (expanded project, command menu) */
+.modal-backdrop {
+  animation: fade-in 200ms ease-out both;
+}
+
+.modal-panel {
+  animation: modal-in 260ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.97);
+  }
+}
+
+.react-grid-item:not(.react-draggable-dragging) > .tile:hover {
+  border-color: hsl(var(--accent) / 0.4);
+  transform: scale(1.015);
+}
+
+.no-anim,
+.no-anim .react-grid-item {
+  transition: none !important;
+}
+
+/* Drag affordances */
+.can-drag .react-grid-item {
+  cursor: grab;
+}
+
+/* Areas that don't start a drag (e.g. scrollable lists) get a normal cursor. */
+.can-drag .react-grid-item .no-drag {
+  cursor: auto;
+}
+
+/* Anything clickable gets a pointer. The [role] attribute gives this the same
+   specificity as the rule above, so (coming later) it wins inside .no-drag too. */
+.can-drag .react-grid-item :is(a, button, label, input[type="range"], [role="button"]),
+.can-drag .react-grid-item :is(a, button, [role="button"]) * {
+  cursor: pointer;
+}
+
+.react-grid-item.react-draggable-dragging {
+  cursor: grabbing;
+  z-index: 20;
+}
+
+.react-grid-item.react-draggable-dragging > .tile {
+  transform: scale(1.03);
+  box-shadow: 0 20px 40px -12px rgb(0 0 0 / 0.45);
+  border-color: hsl(var(--accent) / 0.6);
+}
+
+/* RGL shows the placeholder on mousedown, before we know it's a drag. Letting
+   events pass through keeps mouseup on the tile, so clicks still register. */
+.react-grid-item.react-grid-placeholder {
+  pointer-events: none;
+  background: hsl(var(--accent) / 0.25);
+  border: 2px dashed hsl(var(--accent) / 0.7);
+  border-radius: 1.5rem;
+  opacity: 1;
+}
+
+/* Skills marquee */
+.marquee {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
+}
+
+.marquee-track {
+  display: flex;
+  gap: 0.75rem;
+  width: max-content;
+  padding: 4px 0;
+  animation: marquee 30s linear infinite;
+}
+
+.marquee-reverse {
+  animation-direction: reverse;
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(calc(-50% - 0.375rem));
+  }
+}
+
+.skill-icon {
+  transition: transform 200ms, box-shadow 200ms, background-color 200ms;
+}
+
+.skill-tile:hover .skill-icon {
+  transform: translateY(-3px);
+  background-color: color-mix(in srgb, var(--brand) 15%, transparent);
+  box-shadow: 0 0 0 1px var(--brand), 0 8px 24px -6px var(--brand);
+}
+
+/* Typing test letters: typed correctly = white (dark text in light mode),
+   untyped = light gray, wrong = red. Fixed colors so they don't change with
+   the accent hue. */
+.typing-correct {
+  color: #ffffff;
+}
+
+.typing-untyped {
+  color: #7c838f;
+}
+
+.typing-wrong {
+  color: #f87171;
+}
+
+:root:not(.dark) .typing-correct {
+  color: #111827;
+}
+
+:root:not(.dark) .typing-untyped {
+  color: #b6bcc6;
+}
+
+:root:not(.dark) .typing-wrong {
+  color: #dc2626;
+}
+
+/* Typing test caret */
+.typing-caret {
+  animation: caret-blink 1s step-end infinite;
+}
+
+@keyframes caret-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Hue slider */
+.hue-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  border-radius: 9999px;
+  cursor: pointer;
+  background: linear-gradient(to right, #f00 0%, #ff0 16.66%, #0f0 33.33%, #0ff 50%, #00f 66.66%, #f0f 83.33%, #f00 100%);
+}
+
+.hue-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 9999px;
+  border: 3px solid #fff;
+  background: hsl(var(--hue) 100% 50%);
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.3);
+  cursor: grab;
+}
+
+.hue-range::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 9999px;
+  border: 3px solid #fff;
+  background: hsl(var(--hue) 100% 50%);
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.3);
+  cursor: grab;
+}
+
+/* Slim scrollbars for scrollable tiles */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--line) / 0.25) transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0ms !important;
+    animation-duration: 0ms !important;
+    animation-delay: 0ms !important;
+  }
+
+  /* Show the skills as a static wrapped grid instead of scrolling */
+  .marquee {
+    -webkit-mask-image: none;
+    mask-image: none;
+    padding: 0 2rem;
+  }
+
+  .marquee-track {
+    animation: none;
+    flex-wrap: wrap;
+    width: auto;
+  }
+
+  .marquee-dup {
+    display: none !important;
+  }
+}

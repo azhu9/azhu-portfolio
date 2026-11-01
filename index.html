@@ -3,10 +3,48 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Andy Zhu</title>
+    <title>Andy Zhu — Software Engineer</title>
+    <meta
+      name="description"
+      content="Andy Zhu — Computer Science student at Rutgers University building web apps, robotics software, and embedded systems."
+    />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#0f172a" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.azhu.dev/" />
+    <meta property="og:title" content="Andy Zhu — Software Engineer" />
+    <meta
+      property="og:description"
+      content="Projects, experience, and resume of Andy Zhu, CS @ Rutgers University."
+    />
+    <meta property="og:image" content="https://www.azhu.dev/og.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300..800&family=Geist:wght@400..800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Apply saved theme + hue before first paint to avoid a flash -->
+    <script>
+      (function () {
+        var root = document.documentElement;
+        try {
+          var theme = localStorage.getItem("theme");
+          var dark = theme ? theme === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+          root.classList.toggle("dark", dark);
+          var hue = localStorage.getItem("hue");
+          if (hue) root.style.setProperty("--hue", hue);
+        } catch (e) {
+          root.classList.add("dark");
+        }
+      })();
+    </script>
   </head>
   <body>
-    <div class="overlay"></div>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

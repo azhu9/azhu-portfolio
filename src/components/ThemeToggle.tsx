@@ -1,46 +1,25 @@
-import { useEffect, useState } from "react";
-
 import { LuMoon, LuSun } from "react-icons/lu";
+import { toggleTheme, useIsDark } from "../utils/theme";
 
 const ThemeToggle = () => {
-  const [isDark, setIsDark] = useState(true); // Default to dark
-
-  // Load preference on mount
-  useEffect(() => {
-    const stored = localStorage.getItem("theme");
-    const prefersDark = stored === "dark" || (!stored && true); // fallback to dark
-    setIsDark(prefersDark);
-    document.documentElement.classList.toggle("dark", prefersDark);
-  }, []);
-
-  // Update preference and class
-  useEffect(() => {
-    localStorage.setItem("theme", isDark ? "dark" : "light");
-    document.documentElement.classList.toggle("dark", isDark);
-  }, [isDark]);
-
-  const toggleDarkMode = () => setIsDark(!isDark);
+  const isDark = useIsDark();
 
   return (
-    <div className="background flex items-center justify-center">
-      <label
-        htmlFor="AcceptConditions"
-        className="relative block h-8 w-14 rounded-full bg-gray-400/40 transition-colors [-webkit-tap-highlight-color:_transparent] peer-checked:bg-green-500 dark:bg-gray-700 dark:peer-checked:bg-green-600"
+    <button
+      onClick={toggleTheme}
+      role="switch"
+      aria-checked={isDark}
+      aria-label="Dark mode"
+      className="relative h-8 w-14 shrink-0 rounded-full bg-line/15 ring-1 ring-line/15"
+    >
+      <span
+        className={`absolute top-1 grid size-6 place-content-center rounded-full bg-fg text-[hsl(var(--bg))] transition-all ${
+          isDark ? "left-7" : "left-1"
+        }`}
       >
-        <input
-          type="checkbox"
-          id="AcceptConditions"
-          className="peer sr-only"
-          checked={isDark}
-          onChange={toggleDarkMode}
-        />
-
-        {/* Toggle thumb */}
-        <span className="absolute inset-y-0 start-0 m-1 grid size-6 place-content-center rounded-full bg-white text-gray-700 transition-all peer-checked:start-6 dark:bg-gray-900 dark:text-gray-200">
-          {isDark ? <LuMoon size={16} /> : <LuSun size={16} />}
-        </span>
-      </label>
-    </div>
+        {isDark ? <LuMoon size={14} /> : <LuSun size={14} />}
+      </span>
+    </button>
   );
 };
 
