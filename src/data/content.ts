@@ -108,14 +108,14 @@ export const experience: Position[] = [
     tags: ["React", "TailwindCSS"],
   },
   {
-    // TODO: replace dates and summary with the final versions
+    // TODO: replace the dates
     company: "Nayak, Aulak, Brooks & Parzecki",
     role: "Engineering Extern",
-    start: "TBD",
-    end: "TBD",
+    start: "May 2026",
+    end: "Aug 2026",
     summary:
-      "Designed and built a mobile stand organizer, taking it from concept through prototyping.",
-    tags: ["Product Design", "Prototyping"],
+      "Designed a modular lightstand organizer through 5 design iterations, engineering mounting geometry and print tolerances to fit industry-standard storage rails. Built prototypes with 3D printing and laser cutting in wood and metal, and co-led a 3-person CAD team in Fusion 360 and SolidWorks.",
+    tags: ["Fusion 360", "SolidWorks", "3D Printing", "Laser Cutting"],
   },
   {
     company: "Innovation Foundry",
