@@ -26,9 +26,9 @@ const sizes: Record<string, Record<Breakpoint, Size>> = {
   github: { lg: [1, 2], md: [1, 1], sm: [1, 1] },
   linkedin: { lg: [1, 2], md: [1, 1], sm: [1, 1] },
   email: { lg: [1, 2], md: [2, 1], sm: [2, 1] },
-  experience: { lg: [3, 12], md: [2, 10], sm: [2, 12] },
+  experience: { lg: [3, 13], md: [2, 11], sm: [2, 12] },
   skills: { lg: [3, 5], md: [2, 5], sm: [2, 5] },
-  activity: { lg: [3, 3], md: [2, 3], sm: [2, 4] },
+  activity: { lg: [3, 4], md: [2, 4], sm: [2, 5] },
   typing: { lg: [3, 2], md: [2, 2], sm: [2, 2] },
   project: { lg: [2, 5], md: [2, 5], sm: [2, 5] },
 };

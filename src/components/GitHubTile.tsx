@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { VscGithubAlt } from "react-icons/vsc";
 import { links } from "../data/content";
+import ContributionCalendar from "./ContributionCalendar";
 
 const USER = "azhu9";
 const CACHE_KEY = "github-tile-v1";
@@ -79,8 +80,8 @@ const GitHubTile = () => {
   }, [data]);
 
   return (
-    <div className="tile flex flex-col gap-4 p-6">
-      <div className="flex items-center justify-between gap-3">
+    <div className="tile flex flex-col justify-between gap-4 p-6">
+      <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
         <a
           href={links.github}
           target="_blank"
@@ -98,6 +99,8 @@ const GitHubTile = () => {
           </p>
         )}
       </div>
+
+      <ContributionCalendar user={USER} />
 
       <div>
         <p className="mb-2 text-xs uppercase tracking-wider text-muted">Recently pushed</p>

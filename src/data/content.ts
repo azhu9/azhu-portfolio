@@ -35,6 +35,9 @@ export const profile = {
   school: "Rutgers University",
   degree: "B.S. Computer Science, Minor in Mathematics",
   graduation: "May 2027",
+  // Used for the degree progress bar on the status tile.
+  degreeStart: "2023-09-01",
+  degreeEnd: "2027-05-15",
   location: "New Brunswick, NJ",
   timeZone: "America/New_York",
   bio: "I build things for the web and for robots. I'm a CS student at Rutgers who loves frontend and full-stack development, embedded systems, and good interface design. Outside of code: robotics, piano, 3D modeling, and keeping up with tech news.",
