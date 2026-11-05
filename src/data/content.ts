@@ -27,7 +27,7 @@ import rieee from "../assets/rieeeSS.png";
 import scar from "../assets/scarSS.png";
 import vex from "../assets/vexbots.webp";
 import portfolio from "../assets/portfolio.png";
-import ruopen from "../assets/ruopen.png";
+import ruopen from "../assets/ruopenNew.png";
 import belt from "../assets/beltcalc.png";
 
 export const profile = {
