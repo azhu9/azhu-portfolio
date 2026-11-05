@@ -29,6 +29,7 @@ import vex from "../assets/vexbots.webp";
 import portfolio from "../assets/portfolio.png";
 import ruopen from "../assets/ruopenNew.png";
 import belt from "../assets/beltcalc.png";
+import imgdwg from "../assets/img2dwg.png"
 
 export const profile = {
   name: "Andy Zhu",
@@ -171,7 +172,8 @@ export const projects: Project[] = [
     title: "Image → DXF for Onshape",
     description:
       "Turns PNG/JPG/WEBP images into clean, scaled DXF sketches ready for Onshape. Straight edges become single lines, curves become smooth splines, stray dots are removed, and the result is sized in inches and centered.",
-    tags: ["Python", "Potrace", "NumPy", "ezdxf", "Vercel"],
+    image: imgdwg,
+      tags: ["Python", "Potrace", "NumPy", "ezdxf", "Vercel"],
     github: "https://github.com/azhu9/img2dwg",
     live: "https://img2dwg.vercel.app",
     featured: true,
