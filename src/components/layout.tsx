@@ -29,6 +29,7 @@ import Controls from "./Controls";
 import Slider from "./Slider";
 import GitHubTile from "./GitHubTile";
 import TypingTile from "./TypingTile";
+import Spotlight from "./Spotlight";
 
 import rutgers from "../assets/rutgers.png";
 
@@ -216,6 +217,8 @@ function Layout({ tab, hue, onHueChange, onOpenProject, onOpenTyping }: LayoutPr
         return <GitHubTile />;
       case "typing":
         return <TypingTile onOpen={onOpenTyping} />;
+      case "spotlight":
+        return <Spotlight onOpenProject={onOpenProject} />;
       default: {
         const project = projects.find((p) => projectTileId(p.id) === id);
         return project ? <Project {...project} onOpen={() => onOpenProject(project.id)} /> : null;

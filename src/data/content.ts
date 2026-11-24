@@ -23,12 +23,23 @@ import {
 } from "react-icons/si";
 import { FaJava } from "react-icons/fa";
 
-import rieee from "../assets/rieeeSS.png";
-import scar from "../assets/scarSS.png";
 import vex from "../assets/vexbots.webp";
-import portfolio from "../assets/portfolio.png";
-import ruopen from "../assets/ruopen.png";
-import belt from "../assets/beltcalc.png";
+// Screenshots and demo clips captured from each live site.
+import multiwatchImg from "../assets/projects/media-multiwatch.jpg";
+import img2dxfImg from "../assets/projects/img2dxf.jpg";
+import ruopenImg from "../assets/projects/ruopen.jpg";
+import rieeeImg from "../assets/projects/rieee.jpg";
+import scarImg from "../assets/projects/scar-site.jpg";
+import beltImg from "../assets/projects/belt-calc.jpg";
+import qrImg from "../assets/projects/qr-gen.jpg";
+import portfolioImg from "../assets/projects/portfolio.jpg";
+import img2dxfVideo from "../assets/videos/img2dxf.webm";
+import ruopenVideo from "../assets/videos/ruopen.webm";
+import rieeeVideo from "../assets/videos/rieee.webm";
+import scarVideo from "../assets/videos/scar-site.webm";
+import beltVideo from "../assets/videos/belt-calc.webm";
+import qrVideo from "../assets/videos/qr-gen.webm";
+import portfolioVideo from "../assets/videos/portfolio.webm";
 
 export const profile = {
   name: "Andy Zhu",
@@ -108,7 +119,6 @@ export const experience: Position[] = [
     tags: ["React", "TailwindCSS"],
   },
   {
-    // TODO: replace the dates
     company: "Nayak, Aulak, Brooks & Parzecki",
     role: "Engineering Extern",
     start: "May 2026",
@@ -145,18 +155,30 @@ export interface Project {
   tags: string[];
   github?: string;
   live?: string;
-  featured?: boolean; // featured projects also appear on the About and Contact tabs
+  video?: string; // short muted loop: plays on card hover and in the spotlight
+  liveLabel?: string; // text for the live link button (defaults to "Live site")
+  spotlight?: boolean; // show in the big rotating spotlight on the About and Contact tabs
   details?: string[]; // extra bullet points shown when the card is expanded
 }
 
 export const projects: Project[] = [
   {
-    id: "media-switcher",
-    title: "Media Switcher",
+    id: "media-multiwatch",
+    title: "Media Multiwatch",
     description:
-      "Browser extension for multiviewing live sports and other media, with seamless swapping between streams. A built-in AI detects ad breaks and automatically switches to another stream.",
-    tags: ["Browser Extension", "AI"],
-    featured: true,
+      "Chrome extension for watching several live video tabs at once: one plays with audio in a large main view while the rest show as muted live thumbnails, and a click swaps any of them in. Published on the Chrome Web Store.",
+    image: multiwatchImg,
+    tags: ["Chrome Extension", "JavaScript"],
+    github: "https://github.com/azhu9/video-multiwatch",
+    live: "https://chromewebstore.google.com/detail/media-multiwatch/ijmiandhiibldhplkbcaefdmmohhbija",
+    liveLabel: "Chrome Web Store",
+    spotlight: true,
+    details: [
+      "One main view with audio plus muted live thumbnails; click any thumbnail to swap it in",
+      "Split view shows two streams side by side, and hotkeys (1-9, arrows) jump between tabs",
+      "Smart pausing: on-demand videos pause when out of view while live streams keep running",
+      "Keeps tracked tabs alive and stops them from popping into Picture-in-Picture",
+    ],
   },
   {
     id: "cad-assistant",
@@ -164,17 +186,19 @@ export const projects: Project[] = [
     description:
       "An AI assistant for CAD work. Ask a question from inside the application and it highlights the relevant UI on screen and walks you through the tools step by step.",
     tags: ["AI", "CAD"],
-    featured: true,
+    spotlight: true,
   },
   {
     id: "img2dxf",
     title: "Image → DXF for Onshape",
     description:
       "Turns PNG/JPG/WEBP images into clean, scaled DXF sketches ready for Onshape. Straight edges become single lines, curves become smooth splines, stray dots are removed, and the result is sized in inches and centered.",
+    image: img2dxfImg,
+    video: img2dxfVideo,
     tags: ["Python", "Potrace", "NumPy", "ezdxf", "Vercel"],
     github: "https://github.com/azhu9/img2dwg",
     live: "https://img2dwg.vercel.app",
-    featured: true,
+    spotlight: true,
     details: [
       "Python serverless function on Vercel does the conversion with Pillow, NumPy, Potrace, and ezdxf",
       "Straight edges become single lines and curves become smooth splines, so sketches are clean to constrain in Onshape",
@@ -187,11 +211,12 @@ export const projects: Project[] = [
     title: "RU Open",
     description:
       "Full-stack app that shows Rutgers students whether a classroom is free right now. Relational schema in Supabase/PostgreSQL fed by a Python scraper of Rutgers class directories.",
-    image: ruopen,
+    image: ruopenImg,
+    video: ruopenVideo,
     tags: ["Next.js", "TypeScript", "Supabase", "PostgreSQL"],
     github: "https://github.com/azhu9/ruopen",
     live: "https://ruopen.vercel.app/",
-    featured: true,
+    spotlight: true,
     details: [
       "Next.js with React Server Components, TypeScript, and Supabase/PostgreSQL",
       "Relational schema designed for fast room lookups and future expansion",
@@ -206,8 +231,6 @@ export const projects: Project[] = [
       "Parts checkout system for the Rutgers IEEE Build-a-thon. Teams browse a component catalog, place orders, and track their status, while admins manage an order queue, team inventories, and email notifications.",
     tags: ["Next.js", "TypeScript", "Supabase", "Resend"],
     github: "https://github.com/azhu9/IEEE-Build-a-thon-Inventory-System",
-    live: "https://ieee-build-a-thon-inventory-system.vercel.app",
-    featured: true,
     details: [
       "Contestant side: team login, component catalog, cart, checkout, and live order status",
       "Admin side: order queue, inventory overview, and per-team inventory and member management",
@@ -223,7 +246,6 @@ export const projects: Project[] = [
     image: vex,
     tags: ["C++", "PID", "Odometry"],
     github: "https://github.com/azhu9/VEX25-SCAR-24in",
-    featured: true,
     details: [
       "Driver control with controller macros for competition matches",
       "Autonomous routines using custom PID controllers and motion profiling",
@@ -260,6 +282,8 @@ export const projects: Project[] = [
     title: "Free QR Generator",
     description:
       "QR code generator with no sign-in, no tracking, and no expiration. Runs entirely in the browser with custom shapes, logos, and error correction levels.",
+    image: qrImg,
+    video: qrVideo,
     tags: ["JavaScript", "HTML/CSS"],
     github: "https://github.com/azhu9/QR-Gen",
     live: "https://fqr-gen.vercel.app",
@@ -277,7 +301,8 @@ export const projects: Project[] = [
     title: "Rutgers IEEE Website",
     description:
       "Rebuilt the Rutgers IEEE site as Webmaster. React and Tailwind with flowbite-react and Meraki UI components, plus lazy-loaded images for faster loads.",
-    image: rieee,
+    image: rieeeImg,
+    video: rieeeVideo,
     tags: ["React", "TailwindCSS", "Flowbite"],
     github: "https://github.com/azhu9/rieee",
     live: "https://rieee.vercel.app/",
@@ -287,7 +312,8 @@ export const projects: Project[] = [
     title: "Rutgers VEXU Website",
     description:
       "Site for SCAR, the Rutgers IEEE VEX U team: animated hero, season-by-season team history with awards and media, sponsors, and a sponsorship form.",
-    image: scar,
+    image: scarImg,
+    video: scarVideo,
     tags: ["React", "React Router", "TailwindCSS"],
     github: "https://github.com/azhu9/SCAR-Web-V2",
     live: "https://www.scarrobotics.com/",
@@ -297,7 +323,8 @@ export const projects: Project[] = [
     title: "Timing Belt Calculator",
     description:
       "Calculates sizes and tolerances for HTD 9mm, 15mm, and GT2 9mm timing belts. Used by VEXU Team SCAR in its robot design process.",
-    image: belt,
+    image: beltImg,
+    video: beltVideo,
     tags: ["React", "ShadCN"],
     github: "https://github.com/azhu9/vex-belt-wizard",
     live: "https://belt-calculator.vercel.app/",
@@ -307,7 +334,8 @@ export const projects: Project[] = [
     title: "This Portfolio",
     description:
       "The site you're on: a draggable bento grid with saved layouts, light/dark themes, and a hue slider that recolors everything.",
-    image: portfolio,
+    image: portfolioImg,
+    video: portfolioVideo,
     tags: ["React", "TypeScript", "TailwindCSS"],
     github: "https://github.com/azhu9/azhu-portfolio",
     live: "https://www.azhu.dev/",

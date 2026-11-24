@@ -9,11 +9,23 @@ interface ProjectModalProps {
 }
 
 const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
-  const { title, description, image, tags, github, live, details } = project;
+  const { title, description, image, video, tags, github, live, liveLabel, details } = project;
+  const playVideo = video && !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   return (
     <Modal label={title} onClose={onClose}>
-      {image ? (
+      {playVideo ? (
+        <video
+          src={video}
+          poster={image}
+          autoPlay
+          muted
+          loop
+          playsInline
+          controls
+          className="max-h-[45vh] w-full bg-black object-contain"
+        />
+      ) : image ? (
         <img src={image} alt={title} className="max-h-[45vh] w-full object-cover object-top" />
       ) : (
         <div className="flex h-48 w-full items-center justify-center bg-gradient-to-br from-accent/30 via-accent/10 to-transparent md:h-64">
@@ -61,7 +73,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 rounded-lg bg-accent px-4 py-2 text-sm font-medium text-accent-fg transition-colors hover:bg-accent/85"
               >
-                Live site <LuArrowUpRight />
+                {liveLabel ?? "Live site"} <LuArrowUpRight />
               </a>
             )}
           </div>
