@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { VscGithubAlt } from "react-icons/vsc";
 import { LuArrowUpRight, LuMaximize2 } from "react-icons/lu";
 import type { Project as ProjectData } from "../data/content";
@@ -13,22 +14,53 @@ interface ProjectProps extends ProjectData {
   onOpen: () => void;
 }
 
-const Project: React.FC<ProjectProps> = ({ image, title, description, tags, github, live, onOpen }) => {
+// Hover previews only make sense with a mouse, and not for reduced motion.
+const canPreview = () =>
+  window.matchMedia("(hover: hover) and (pointer: fine)").matches &&
+  !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+const Project: React.FC<ProjectProps> = ({ image, video, title, description, tags, github, live, liveLabel, onOpen }) => {
   const tap = useTap(onOpen);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  // The clip only downloads on first hover (preload="none").
+  const playPreview = () => {
+    if (video && canPreview()) videoRef.current?.play().catch(() => {});
+  };
+  const stopPreview = () => {
+    const v = videoRef.current;
+    if (!v) return;
+    v.pause();
+    v.currentTime = 0;
+  };
 
   return (
-    <div {...tap} aria-label={`Open ${title}`} className="project-card tile group flex flex-col p-4">
+    <div
+      {...tap}
+      aria-label={`Open ${title}`}
+      onMouseEnter={playPreview}
+      onMouseLeave={stopPreview}
+      className="project-card tile group flex flex-col p-4"
+    >
       <span className="pointer-events-none absolute right-6 top-6 z-10 grid size-8 place-content-center rounded-full bg-black/45 text-sm text-white opacity-0 backdrop-blur transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">
         <LuMaximize2 />
       </span>
       {image ? (
-        <img
-          src={image}
-          alt={title}
-          draggable={false}
-          loading="lazy"
-          className={`${imageClass} object-cover object-top`}
-        />
+        <div className={`${imageClass} relative overflow-hidden`}>
+          <img src={image} alt={title} draggable={false} loading="lazy" className="size-full object-cover object-top" />
+          {video && (
+            <video
+              ref={videoRef}
+              src={video}
+              muted
+              loop
+              playsInline
+              preload="none"
+              aria-hidden
+              className="absolute inset-0 size-full object-cover object-top opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+            />
+          )}
+        </div>
       ) : (
         <div
           className={`${imageClass} flex flex-col items-center justify-center gap-2 bg-gradient-to-br from-accent/30 via-accent/10 to-transparent ring-1 ring-inset ring-line/10`}
@@ -64,7 +96,7 @@ const Project: React.FC<ProjectProps> = ({ image, title, description, tags, gith
             rel="noopener noreferrer"
             className={`${buttonClass} bg-accent text-accent-fg hover:bg-accent/85`}
           >
-            Live site <LuArrowUpRight />
+            {liveLabel ?? "Live site"} <LuArrowUpRight />
           </a>
         )}
       </div>

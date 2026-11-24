@@ -243,6 +243,33 @@ body {
   box-shadow: 0 0 0 1px var(--brand), 0 8px 24px -6px var(--brand);
 }
 
+/* Spotlight carousel */
+.spotlight-in {
+  animation: spotlight-in 450ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@keyframes spotlight-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+.spotlight-progress {
+  animation-name: spotlight-progress;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+@keyframes spotlight-progress {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
 /* Typing test letters: typed correctly = white (dark text in light mode),
    untyped = light gray, wrong = red. Fixed colors so they don't change with
    the accent hue. */

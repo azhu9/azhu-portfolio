@@ -31,11 +31,11 @@ const sizes: Record<string, Record<Breakpoint, Size>> = {
   activity: { lg: [3, 4], md: [2, 4], sm: [2, 5] },
   typing: { lg: [3, 2], md: [2, 2], sm: [2, 2] },
   project: { lg: [2, 5], md: [2, 5], sm: [2, 5] },
+  spotlight: { lg: [6, 6], md: [4, 6], sm: [2, 8] },
 };
 
 export const projectTileId = (id: string) => `project:${id}`;
 const projectTiles = projects.map((p) => projectTileId(p.id));
-const featuredTiles = projects.filter((p) => p.featured).map((p) => projectTileId(p.id));
 
 type Override = Partial<Record<Breakpoint, Size>>;
 type TileOrder = (string | [string, Override])[];
@@ -47,7 +47,7 @@ const tabOrders: Record<TabKey, TileOrder> = {
     "hero", "resume", "status",
     "github", "linkedin", "email",
     "experience", "skills", "activity", "typing",
-    ...featuredTiles,
+    "spotlight",
   ],
   [TabKey.Projects]: [
     "logo", "controls", "hue",
@@ -68,12 +68,12 @@ const tabOrders: Record<TabKey, TileOrder> = {
     "activity",
     "typing",
     ["hero", { lg: [6, 4] }],
-    ...featuredTiles,
+    "spotlight",
   ],
 };
 
-// Tiles shown on each tab (the Projects tab shows every project, the others
-// only featured ones).
+// Tiles shown on each tab (the Projects tab shows every project as a card; the
+// others show the spotlight carousel instead).
 export const tileIdsFor = (tab: TabKey) =>
   tabOrders[tab].map((t) => (typeof t === "string" ? t : t[0]));
 
